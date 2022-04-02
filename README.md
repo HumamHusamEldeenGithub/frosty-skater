@@ -1,6 +1,6 @@
 # Frosty Skater A-Frame Repo
 
-To run the project : 
+To run the project , type in the project's CLI : 
 ```
 npm i 
 npm run dev 
