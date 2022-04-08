@@ -45,7 +45,7 @@ var animate = async function () {
   var deltaTime = 1000 / 60;
   setTimeout(requestAnimationFrame(animate), deltaTime);
   var keypoints = await posenet.detectPose();
-  if (keypoints) {
+  if (keypoints && keypoints[0].keypoints ) {
     cubeMovementController(keypoints);
   }
 };
