@@ -1,52 +1,22 @@
-import * as posenet from "./posenet";
+import {hoverboardComp} from '../aframe-components/hoverboardComp';
+import {timeComponent} from '../aframe-components/timeComponents';
+import "../style.css"
 
 
-function calculateAngle(data) {
-  var leftShoudlerFound = false,
-    rightShoulderFound = false;
-  var leftShoulder = new Object(),
-    rightShoulder = new Object();
-  for (var i = 0; i < data.keypoints.length; i++) {
-    var key = data.keypoints[i];
-    if (key.name == "left_shoulder") {
-      leftShoulder.x = key.x;
-      leftShoulder.y = key.y;
-      leftShoudlerFound = true;
-    }
-    if (key.name == "right_shoulder") {
-      rightShoulder.x = key.x;
-      rightShoulder.y = key.y;
-      rightShoulderFound = true;
-    }
-    if (leftShoudlerFound && rightShoulderFound) break;
-  }
-  var angle =
-    Math.atan2(
-      leftShoulder.y - rightShoulder.y,
-      leftShoulder.x - rightShoulder.x
-    ) *
-    (180 / Math.PI);
-  return angle;
+var scene = document.querySelector('a-scene');
+
+
+if (scene.hasLoaded) {
+  registerComponents();
+} else {
+  scene.addEventListener('loaded', registerComponents);
 }
 
-function cubeMovementController(keypoints) {
-  var angle = calculateAngle(keypoints[0]);
-  var sceneEl = document.querySelector("a-scene");
-  var box = sceneEl.querySelector("#redBox");
-  var position = box.getAttribute("position");
-  //console.log(position);
-  position.x += angle * 0.01;
-  box.setAttribute("position", position);
-}
 
-//Renderer
-var animate = async function () {
-  // Render 60 fps
-  var deltaTime = 1000 / 60;
-  setTimeout(requestAnimationFrame(animate), deltaTime);
-  var keypoints = await posenet.detectPose();
-  if (keypoints) {
-    cubeMovementController(keypoints);
-  }
-};
-animate();
+function registerComponents(){
+  AFRAME.registerComponent("hoverboard", hoverboardComp);
+  document.getElementById('redBox').setAttribute('hoverboard', '');
+  AFRAME.registerComponent("time-comps", timeComponent);
+  scene.setAttribute('time-comps', '');
+  console.log("Registered");
+}

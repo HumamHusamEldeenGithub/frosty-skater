@@ -10,6 +10,7 @@ const detector = await poseDetection.createDetector(
   poseDetection.SupportedModels.MoveNet,
   detectorConfig
 );
+document.querySelector("#loading-wrapper").remove();
 
 export async function detectPose() {
   try {
@@ -28,4 +29,36 @@ export async function detectPose() {
   } catch (e) {
     console.log(e);
   }
+}
+
+
+export async function calculateAngle() {
+  var data = await detectPose();
+  if(!data || !data[0].keypoints || data[0].keypoints.length == 0)
+    return 0;
+  var leftShoudlerFound = false,
+    rightShoulderFound = false;
+  var leftShoulder = new Object(),
+    rightShoulder = new Object();
+  for (var i = 0; i < data[0].keypoints.length; i++) {
+    var key = data[0].keypoints[i];
+    if (key.name == "left_shoulder") {
+      leftShoulder.x = key.x;
+      leftShoulder.y = key.y;
+      leftShoudlerFound = true;
+    }
+    if (key.name == "right_shoulder") {
+      rightShoulder.x = key.x;
+      rightShoulder.y = key.y;
+      rightShoulderFound = true;
+    }
+    if (leftShoudlerFound && rightShoulderFound) break;
+  }
+  var angle =
+    Math.atan2(
+      leftShoulder.y - rightShoulder.y,
+      leftShoulder.x - rightShoulder.x
+    ) *
+    (180 / Math.PI);
+  return angle;
 }

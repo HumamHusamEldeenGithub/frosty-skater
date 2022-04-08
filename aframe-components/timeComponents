@@ -1,0 +1,15 @@
+var deltaTime = 0.02;
+var lastFrame = null;
+
+const timeComponent = {
+    tick(){
+        if (!lastFrame) lastFrame = new Date();
+        else {
+            deltaTime = ((new Date()) - lastFrame) / 1000;
+            lastFrame = new Date();
+            console.log(deltaTime);
+        }
+    }
+}
+
+export {timeComponent, deltaTime};
