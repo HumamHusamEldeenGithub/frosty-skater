@@ -1,22 +1,60 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title>MainScene</title>
-    <meta name="description" content="MainScene">
+    <meta name="description" content="MainScene" />
     <script src="https://aframe.io/releases/0.9.2/aframe.min.js"></script>
     <script src="./scripts/main.js" type="module"></script>
     <script src="./scripts/cameraStream.js" type="module"></script>
+    <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
+    <script src="http://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
   </head>
   <body>
-    <a-scene background="color: #ECECEC">
-
+    <a-scene physics>
       <a-assets>
-              <video id="webcam" playsinline crossorigin="anonymous"></video>
+        <video id="webcam" playsinline crossorigin="anonymous"></video>
+        <img id="sky" src="./textures/sky.png" />
+        <img id="snow" src="./textures/snow.jpg" />
+        <img id="snow_map" src="./textures/snow_map.jpg" />
       </a-assets>
+      <a-sky src="#sky"></a-sky>
+      <a-plane
+        static-body
+        material="color: #FFFFFF;
+                  src:#snow;
+                  repeat:500 500; 
+                  normal-map:#snow_map;
+                  normal-texture-repeat:500 500 ;"
+        scale="1000 1000 1"
+        rotation="-90 0 0"
+      ></a-plane>
+      <!-- Dynamic Sphere -->
+      <a-sphere
+        dynamic-body
+        position="2 3 -5"
+        width="1"
+        height="1"
+        depth="1"
+      ></a-sphere>
+      <!-- Static box -->
+      <a-box
+        static-body
+        id="redBox"
+        position="0 1 -5"
+        rotation="0 0 0"
+        width="1"
+        height="1"
+        color="red"
+      ></a-box>
       <!-- video screen -->
-      <a-box id="redBox" position="0 1 -5" rotation="0 0 0"  width ="1" height = "1" color="red"></a-box>
-      <a-box src= "#webcam"  position="0 5 -15" rotation="0 180 0"  width ="15" height = "10"></a-box>
+      <a-box
+        src="#webcam"
+        position="0 5 -15"
+        rotation="0 180 0"
+        width="15"
+        height="10"
+      ></a-box>
     </a-scene>
   </body>
 </html>

@@ -1,5 +1,6 @@
 import * as posenet from "./posenet";
 
+
 function calculateAngle(data) {
   var leftShoudlerFound = false,
     rightShoulderFound = false;
@@ -28,22 +29,24 @@ function calculateAngle(data) {
   return angle;
 }
 
-function cubeMovementController(keypoints){
-    var angle = calculateAngle(keypoints[0]);
-    var sceneEl = document.querySelector('a-scene');
-    var box = sceneEl.querySelector('#redBox');
-    var position = box.getAttribute('position');
-    console.log(position);
-    position.x += angle*0.01 ;
-    box.setAttribute('position' , position);
+function cubeMovementController(keypoints) {
+  var angle = calculateAngle(keypoints[0]);
+  var sceneEl = document.querySelector("a-scene");
+  var box = sceneEl.querySelector("#redBox");
+  var position = box.getAttribute("position");
+  //console.log(position);
+  position.x += angle * 0.01;
+  box.setAttribute("position", position);
 }
 
 //Renderer
 var animate = async function () {
-  requestAnimationFrame(animate);
+  // Render 60 fps
+  var deltaTime = 1000 / 60;
+  setTimeout(requestAnimationFrame(animate), deltaTime);
   var keypoints = await posenet.detectPose();
   if (keypoints) {
-      cubeMovementController(keypoints);
+    cubeMovementController(keypoints);
   }
 };
 animate();
