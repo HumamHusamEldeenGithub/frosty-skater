@@ -7,7 +7,6 @@ const timeComponent = {
         else {
             deltaTime = ((new Date()) - lastFrame) / 1000;
             lastFrame = new Date();
-            console.log(deltaTime);
         }
     }
 }

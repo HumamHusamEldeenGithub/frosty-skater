@@ -10,24 +10,30 @@
     <script src="./scripts/cameraStream.js" type="module"></script>
     <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
     <script src="http://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
-    <script> </script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
+    <script></script>
   </head>
   <body>
     <div id="loading-wrapper">
-      <h1> Loading... </h1>
+      <h1>Loading...</h1>
     </div>
-    <a-scene physics="debug:true">
-      
+    <a-scene stats physics="debug:true">
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
         <img id="snow" src="./textures/snow.jpg" />
         <img id="snow_map" src="./textures/snow_map.jpg" />
-        <a-asset-item id="hoverboard" src="./models/hoverboard.glb"></a-asset-item>
+        <a-asset-item
+          id="hoverboard"
+          src="./models/hoverboard.glb"
+        ></a-asset-item>
+        <a-asset-item id="human" src="./models/human.glb"></a-asset-item>
       </a-assets>
       <a-sky src="#sky"></a-sky>
-      <a-entity id="rig" position="0 8 3" rotation="-30 0 0" >
-        <a-entity id="camera" camera look-controls wasd-controls="acceleration: 200"></a-entity>
+      <a-entity particle-system="preset: snow" position="0 0 -10"></a-entity>
+      <a-entity id="rig" position="0 8 3" rotation="-30 0 0">
+        <!-- <a-entity id="camera" camera look-controls wasd-controls="acceleration: 200"></a-entity> -->
+        <a-entity id="camera_comp"></a-entity>
       </a-entity>
       <a-plane
         static-body
@@ -48,14 +54,22 @@
         depth="1"
       ></a-sphere>
       <!-- Static box -->
-      <a-entity
-        animation-mixer="loop: repeat; timeScale: 2;"
-        id="redBox"
-        static-body
-        gltf-model="#hoverboard"
-        position="3 1 -5"
-        rotation="0 0 0"
-      ></a-entity>
+      <a-entity position="3 1 +1000" id="player">
+        <a-entity
+          animation-mixer="loop: repeat; timeScale: 2;"
+          static-body
+          gltf-model="#hoverboard"
+          rotation="0 0 0"
+        ></a-entity>
+        <a-entity
+          animation-mixer="loop: repeat; timeScale: 2;"
+          gltf-model="#human"
+          position="0 1.2 0"
+          rotation="0 180 0"
+          scale="1.5 1.5 1.5"
+          material="color: red"
+        ></a-entity>
+      </a-entity>
       <!-- video screen -->
       <a-box
         src="#webcam"
@@ -66,8 +80,10 @@
         scale="-1 1 1"
       ></a-box>
       <a-entity light="type: ambient; color: #CCC; intensity: 0.5"></a-entity>
-      <a-entity light="type: point; intensity: 1.5; distance: 30; decay: 2"
-          position="0 10 -10"></a-entity>
+      <a-entity
+        light="type: point; intensity: 1.5; distance: 30; decay: 2"
+        position="0 10 -10"
+      ></a-entity>
     </a-scene>
   </body>
 </html>
