@@ -33,9 +33,20 @@
       <a-entity particle-system="preset: snow" position="0 0 -10"></a-entity>
       <a-entity id="rig" position="0 8 3" rotation="-30 0 0">
         <!-- <a-entity id="camera" camera look-controls wasd-controls="acceleration: 200"></a-entity> -->
-        <a-entity id="camera_comp"></a-entity>
       </a-entity>
-      <a-plane
+      <a-entity id="camera_comp">
+        <a-camera>
+          <a-plane
+            src="#webcam"
+            id="webcam_obj"
+            position="0 0 -3"
+            width="1.5"
+            height="1"
+            scale="-1 1 1"
+          ></a-plane>
+        </a-camera>
+      </a-entity>
+      <!-- <a-plane
         static-body
         material="color: #FFFFFF;
                   src:#snow;
@@ -44,17 +55,19 @@
                   normal-texture-repeat:500 500 ;"
         scale="1000 1000 1"
         rotation="-90 0 0"
-      ></a-plane>
+      ></a-plane> -->
       <!-- Dynamic Sphere -->
       <a-sphere
-        dynamic-body
-        position="0 4 -5"
-        width="1"
-        height="1"
-        depth="1"
+        id="world"
+        static-body
+        position="0 -18 0"
+        width="200"
+        height="200"
+        depth="200"
+        scale="45 20 20"
       ></a-sphere>
       <!-- Static box -->
-      <a-entity position="3 1 +1000" id="player">
+      <a-entity position="0 2 0" id="player">
         <a-entity
           animation-mixer="loop: repeat; timeScale: 2;"
           static-body

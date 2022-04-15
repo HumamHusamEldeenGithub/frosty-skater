@@ -7,7 +7,7 @@ const playerComp = {
   },
   async tick(time, timeDelta) {
     var angle = await posenet.calculateAngle();
-    this.movementController(angle, timeDelta);
+    //this.movementController(angle, timeDelta);
     this.rotationController(angle);
   },
   async movementController(angle,timeDelta) {
