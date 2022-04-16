@@ -3,6 +3,7 @@ import { timeComponent } from "../aframe-components/timeComponents";
 import { cameraComp } from "../aframe-components/cameraComp";
 import { worldComp } from "../aframe-components/worldComp";
 import { webcam } from "../aframe-components/webcam";
+import { grid } from "../aframe-components/gridComp";
 import "../style.css";
 
 var scene = document.querySelector("a-scene");
@@ -19,14 +20,15 @@ function registerComponents() {
   AFRAME.registerComponent("time_comps", timeComponent);
   AFRAME.registerComponent("world_comp", worldComp);
   AFRAME.registerComponent("webcam", webcam);
+  AFRAME.registerComponent("grid", grid);
   console.log("Registered");
 }
 
 function attachComoponents() {
-  document.getElementById("camera_comp").setAttribute("camera_comp", "target:#player;");
-  document.getElementById("player").setAttribute("player_comp",'');
-  document.getElementById("world").setAttribute("world_comp",'');
-  document.getElementById("webcam_obj").setAttribute("webcam",'');
+  document.getElementById("camera_comp").setAttribute("camera_comp", "");
+  document.getElementById("player").setAttribute("player_comp", "");
+  document.getElementById("webcam_obj").setAttribute("webcam", "");
+  document.getElementById("grid").setAttribute("grid", "");
   scene.setAttribute("time_comps", "");
 }
 
