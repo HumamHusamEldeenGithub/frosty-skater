@@ -25,47 +25,36 @@
         <img id="snow_map" src="./textures/snow_map.jpg" />
         <a-asset-item
           id="hoverboard"
-          src="./models/hoverboard.glb"
+          src="./models/Skater.glb"
         ></a-asset-item>
-        <a-asset-item id="human" src="./models/human.glb"></a-asset-item>
       </a-assets>
       <a-sky src="#sky"></a-sky>
       <a-entity particle-system="preset: snow;" position="0 0 -10"></a-entity>
-      <a-entity id="camera_comp">
-        <a-camera>
-          <a-video
-            src="#webcam"
-            id="webcam_obj"
-            width="1.5"
-            height="1"
-            scale="-1 1 1"
-          >
-          </a-video>
-        </a-camera>
+      <a-entity camera id="camera_comp">
+        <a-video
+          src="#webcam"
+          id="webcam_obj"
+          width="1.5"
+          height="1"
+          scale="-1 1 1"
+        >
+        </a-video>
       </a-entity>
-      <a-entity id="grid">
-        <a-plane
-          material="color: #FFFFFF;
-                  src:#snow;
-                  repeat:500 500; 
-                  normal-map:#snow_map;
-                  normal-texture-repeat:500 500 ;"
-          scale="1000 1000 1"
-          rotation="-90 0 0"
-        ></a-plane>
-      </a-entity>
-      <a-entity position="0 2 0" id="player">
-        <a-entity
-          animation-mixer="loop: repeat; timeScale: 2;"
-          static-body
-          gltf-model="#hoverboard"
-          rotation="0 0 0"
-        ></a-entity>
-      </a-entity>
-      <a-entity light="type: ambient; color: #CCC; intensity: 0.5"></a-entity>
+      <a-plane
+        id="grid"
+        material="color: #FFFFFF;
+                src:#snow;
+                repeat:50 50; 
+                normal-map:#snow_map;
+                normal-texture-repeat:50 50
+                 ;"
+        scale="1000 1000 1"
+        rotation="-90 0 0"
+      ></a-plane>
       <a-entity
-        light="type: point; intensity: 1.5; distance: 30; decay: 2"
-        position="0 10 -10"
+      position="0 2 0" id="player"
+        dynamic-body
+        rotation="0 0 0"
       ></a-entity>
     </a-scene>
   </body>

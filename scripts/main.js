@@ -1,5 +1,4 @@
 import { playerComp } from "../aframe-components/playerComp";
-import { timeComponent } from "../aframe-components/timeComponents";
 import { cameraComp } from "../aframe-components/cameraComp";
 import { worldComp } from "../aframe-components/worldComp";
 import { webcam } from "../aframe-components/webcam";
@@ -17,7 +16,6 @@ if (scene.hasLoaded) {
 function registerComponents() {
   AFRAME.registerComponent("player_comp", playerComp);
   AFRAME.registerComponent("camera_comp", cameraComp);
-  AFRAME.registerComponent("time_comps", timeComponent);
   AFRAME.registerComponent("world_comp", worldComp);
   AFRAME.registerComponent("webcam", webcam);
   AFRAME.registerComponent("grid", grid);
@@ -29,7 +27,6 @@ function attachComoponents() {
   document.getElementById("player").setAttribute("player_comp", "");
   document.getElementById("webcam_obj").setAttribute("webcam", "");
   document.getElementById("grid").setAttribute("grid", "");
-  scene.setAttribute("time_comps", "");
 }
 
 async function initScene() {

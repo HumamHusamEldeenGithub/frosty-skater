@@ -3,6 +3,8 @@ import * as tf from "@tensorflow/tfjs-core";
 // Register one of the TF.js backends.
 import "@tensorflow/tfjs-backend-webgl";
 
+export var angle = 0;
+
 const detectorConfig = {
   modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
 };
@@ -34,7 +36,7 @@ export async function detectPose() {
 
 export async function calculateAngle() {
   var data = await detectPose();
-  if(!data || !data[0].keypoints || data[0].keypoints.length == 0)
+  if (!data || !data[0].keypoints || data[0].keypoints.length == 0)
     return 0;
   var leftShoudlerFound = false,
     rightShoulderFound = false;
@@ -54,11 +56,14 @@ export async function calculateAngle() {
     }
     if (leftShoudlerFound && rightShoulderFound) break;
   }
-  var angle =
+  var newAngle =
     Math.atan2(
       leftShoulder.y - rightShoulder.y,
       leftShoulder.x - rightShoulder.x
     ) *
     (180 / Math.PI);
-  return angle;
+  angle = newAngle + angle;
+  angle /= 2;
 }
+
+var intervalId = window.setInterval(calculateAngle, 200);
