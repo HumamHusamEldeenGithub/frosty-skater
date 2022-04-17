@@ -3,6 +3,7 @@ import { cameraComp } from "../aframe-components/cameraComp";
 import { worldComp } from "../aframe-components/worldComp";
 import { webcam } from "../aframe-components/webcam";
 import { grid } from "../aframe-components/gridComp";
+import * as gameController from "./gameController";
 import "../style.css";
 
 var scene = document.querySelector("a-scene");
@@ -26,10 +27,10 @@ function attachComoponents() {
   document.getElementById("camera_comp").setAttribute("camera_comp", "");
   document.getElementById("player").setAttribute("player_comp", "");
   document.getElementById("webcam_obj").setAttribute("webcam", "");
-  document.getElementById("grid").setAttribute("grid", "");
 }
 
 async function initScene() {
   registerComponents();
   attachComoponents();
+  gameController.startGame();
 }

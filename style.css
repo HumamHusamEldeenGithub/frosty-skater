@@ -6,8 +6,7 @@
   color: #2c3e50;
   margin-top: 60px;
 }
-
-#loading-wrapper{
+.fullscreen-wrapper{
   z-index: 10;
   position:absolute;
   width: 100vw;
@@ -16,4 +15,10 @@
   align-items: center;
   justify-content: center;
   background-color: white;
+  flex-direction: column;
 }
+.display-none{
+  display: none;
+}
+
+

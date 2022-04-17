@@ -33,11 +33,9 @@ export async function detectPose() {
   }
 }
 
-
 export async function calculateAngle() {
   var data = await detectPose();
-  if (!data || !data[0].keypoints || data[0].keypoints.length == 0)
-    return 0;
+  if (!data || !data[0].keypoints || data[0].keypoints.length == 0) return 0;
   var leftShoudlerFound = false,
     rightShoulderFound = false;
   var leftShoulder = new Object(),

@@ -8,25 +8,27 @@
     <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.min.js"></script>
     <script src="./scripts/main.js" type="module"></script>
     <script src="./scripts/cameraStream.js" type="module"></script>
+    <script src="./scripts/gameController.js" type="module"></script>
     <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
     <script src="http://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
     <script></script>
   </head>
   <body>
-    <div id="loading-wrapper">
+    <div id="loading-wrapper" class="fullscreen-wrapper">
       <h1>Loading...</h1>
     </div>
-    <a-scene stats physics="debug:true">
+    <div id="gameover-wrapper" class="fullscreen-wrapper display-none">
+      <h1>Game Over</h1>
+      <button id="startBtn">Start again</button>
+    </div>
+    <a-scene stats physics="debug:true;gravity:0">
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
         <img id="snow" src="./textures/snow.jpg" />
         <img id="snow_map" src="./textures/snow_map.jpg" />
-        <a-asset-item
-          id="hoverboard"
-          src="./models/Skater.glb"
-        ></a-asset-item>
+        <a-asset-item id="hoverboard" src="./models/Skater.glb"></a-asset-item>
       </a-assets>
       <a-sky src="#sky"></a-sky>
       <a-entity particle-system="preset: snow;" position="0 0 -10"></a-entity>
@@ -40,20 +42,12 @@
         >
         </a-video>
       </a-entity>
-      <a-plane
-        id="grid"
-        material="color: #FFFFFF;
-                src:#snow;
-                repeat:50 50; 
-                normal-map:#snow_map;
-                normal-texture-repeat:50 50
-                 ;"
-        scale="1000 1000 1"
-        rotation="-90 0 0"
-      ></a-plane>
+      <a-entity id="grids-wrapper"> </a-entity>
       <a-entity
-      position="0 2 0" id="player"
-        dynamic-body
+        physics-collider
+        position="0 3 0"
+        id="player"
+        kinematic-body="radius:5"
         rotation="0 0 0"
       ></a-entity>
     </a-scene>
