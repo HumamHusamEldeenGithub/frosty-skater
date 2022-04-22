@@ -48,7 +48,7 @@ export const playerComp = {
   async tick(time, timeDelta) {
     if (!mixer) return;
     this.movementController(timeDelta / 1000);
-    this.gradualWeightUpdate();
+    this.gradualWeightUpdate(timeDelta / 1000);
     mixer.update(timeDelta / 1000);
   },
   async movementController(timeDelta) {
@@ -64,42 +64,37 @@ export const playerComp = {
       action.play();
     });
   },
-  async gradualWeightUpdate() {
-    // Too lazy to improve for now
-    // It's working for now
-    // لا حدا يسألني شو هاد
+  async gradualWeightUpdate(timeDelta) {
+    // Yay this got improved
+    // This still can be improved but it's way better now
+    // Better and faster calculations
+    // صار فيكن تسألوني شو هاد
     var angle = posenet.angle;
-    var percent = Math.abs(angle) / 10;
+
+    // Clamping the angle
+    if(angle > 0)
+      angle = Math.min(angle,15);
+    else
+      angle = Math.max(angle,-15);
+
+    var percent = Math.abs(angle) / 15;
     var centerPercent = 1 - percent;
-    var timeDelta = 0.01;
-    if (centerWeight > centerPercent + 0.1) {
+
+    // Going to edge
+    if (centerWeight > centerPercent) {
       centerWeight -= timeDelta;
       if (angle > 0) {
-        if (leftWeight < 1) leftWeight += timeDelta;
-        if (rightWeight > 0) {
-          rightWeight -= timeDelta;
-          rightWeight = Math.max(0, rightWeight);
-        }
+        leftWeight += timeDelta;
+        rightWeight = 1 - centerWeight - leftWeight;
       } else {
-        if (rightWeight < 1) rightWeight += timeDelta;
-        if (leftWeight > 0) {
-          leftWeight -= timeDelta;
-          leftWeight = Math.max(0, leftWeight);
-        }
+        rightWeight += timeDelta;
+        leftWeight = 1 - centerWeight - rightWeight;
       }
-    } else if (centerWeight < centerPercent - 0.1) {
-      centerWeight += timeDelta;
-      if (angle > 0) {
-        if (leftWeight > 0) {
-          leftWeight -= timeDelta;
-          leftWeight = Math.max(0, leftWeight);
-        }
-      } else {
-        if (rightWeight > 0) {
-          rightWeight -= timeDelta;
-          rightWeight = Math.max(0, rightWeight);
-        }
-      }
+    // Recentering
+    } else if (centerWeight < centerPercent) {
+        centerWeight += timeDelta;
+        leftWeight = Math.max(0, leftWeight - timeDelta);
+        rightWeight = Math.max(0, rightWeight - timeDelta);
     }
     setWeight(centerAction, centerWeight);
     setWeight(leftAction, leftWeight);
