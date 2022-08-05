@@ -27,7 +27,7 @@ function initGrids() {
   for (var i = 0; i < maxGrids; i++) {
     var newGrid = document.createElement("a-entity");
     newGrid.id = "grid";
-    newGrid.setAttribute("grid", "position:0 0 " + offset + ";");
+    newGrid.setAttribute("grid", "position:0 0 " + offset + "; index: " + i +" ;");
     gridsWrapper.appendChild(newGrid);
     offset -= gridDim.y;
   }

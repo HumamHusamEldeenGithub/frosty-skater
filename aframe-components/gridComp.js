@@ -3,6 +3,7 @@ import * as gameController from "../scripts/gameController";
 export const grid = {
   schema: {
     position: { type: "vec3" },
+    index: {type: "int"}
   },
   multiple: true,
   init: async function () {
@@ -41,10 +42,18 @@ export const grid = {
     }
   },
   generateObstacles() {
+
     var boxDepth = 10;
     var boxWidth = 20;
     var boxHeight = 10;
-    var offset = (gameController.gridDim.y / 2) * -1 - 30;
+
+    var offset
+
+    if (this.data.index == 0) 
+      offset = (gameController.gridDim.y);
+    else 
+      offset = (gameController.gridDim.y / 2) * -1 ;
+
     for (; offset < gameController.gridDim.y / 2; offset += boxDepth * 5) {
       var obstacle = document.createElement("a-box");
       var x_pos =

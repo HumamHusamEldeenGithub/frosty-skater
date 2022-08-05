@@ -20,5 +20,14 @@
 .display-none{
   display: none;
 }
+.score-wrapper{
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  font-size: 2rem;
+  margin-right:20px;
+}
 
 

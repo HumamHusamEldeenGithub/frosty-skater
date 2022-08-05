@@ -1,7 +1,7 @@
 import * as posenet from "../scripts/posenet";
 import * as gameController from "../scripts/gameController";
 
-var mixer, clock;
+var mixer , clock;
 var actions;
 
 var centerAction, leftAction, rightAction;
@@ -11,11 +11,15 @@ var centerWeight = 1,
   rightWeight = 0;
 
 export const playerComp = {
+  schema: {
+    score: { type: "number" },
+  },
   init() {
     // Collision detection
     this.el.addEventListener("collide", function (e) {
       console.log(e.detail);
       console.log("Player has collided with ", e.detail.body.el);
+      document.getElementById('#crashed').components.sound.playSound();
       gameController.endGame();
     });
     clock = new THREE.Clock();
@@ -48,7 +52,8 @@ export const playerComp = {
   async tick(time, timeDelta) {
     if (!mixer) return;
     this.movementController(timeDelta / 1000);
-    this.gradualWeightUpdate(timeDelta / 1000);
+    //this.gradualWeightUpdate(timeDelta / 1000);
+    this.updateScore(timeDelta /1000); 
     mixer.update(timeDelta / 1000);
   },
   async movementController(timeDelta) {
@@ -65,10 +70,6 @@ export const playerComp = {
     });
   },
   async gradualWeightUpdate(timeDelta) {
-    // Yay this got improved
-    // This still can be improved but it's way better now
-    // Better and faster calculations
-    // صار فيكن تسألوني شو هاد
     var angle = posenet.angle;
 
     // Clamping the angle
@@ -100,6 +101,13 @@ export const playerComp = {
     setWeight(leftAction, leftWeight);
     setWeight(rightAction, rightWeight);
   },
+
+  async updateScore (timeDelta) {
+    var score = parseFloat(document.querySelector('.score-div').innerHTML)
+    this.data.score +=timeDelta ; 
+    document.querySelector('.score-div').innerHTML = parseInt(this.data.score);
+  }
+
 };
 
 async function setWeight(action, weight) {
