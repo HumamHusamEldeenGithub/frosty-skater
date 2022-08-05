@@ -66,6 +66,7 @@ export const grid = {
       obstacle.setAttribute("depth", boxDepth);
       obstacle.setAttribute("static-body", "");
       obstacle.setAttribute("position", x_pos + " 5 " + z_pos);
+      obstacle.setAttribute("material", "color:gray;");
       this.el.appendChild(obstacle);
     }
   },

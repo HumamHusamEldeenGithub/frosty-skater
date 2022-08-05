@@ -6,6 +6,7 @@ import { grid } from "../aframe-components/gridComp";
 import { coinComp } from "../aframe-components/coinComp";
 import * as gameController from "./gameController";
 import "../style.css";
+import * as posenet from "./posenet";
 
 var scene = document.querySelector("a-scene");
 
@@ -28,11 +29,13 @@ function registerComponents() {
 function attachComoponents() {
   document.getElementById("camera_comp").setAttribute("camera_comp", "");
   document.getElementById("player").setAttribute("player_comp", "");
-  document.getElementById("webcam_obj").setAttribute("webcam", "");
+  //document.getElementById("webcam_obj").setAttribute("webcam", "");
 }
 
 async function initScene() {
   registerComponents();
   attachComoponents();
+  posenet.detectPose();
   gameController.startGame();
+  document.querySelector("#loading-wrapper").remove();
 }

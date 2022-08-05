@@ -11,9 +11,7 @@ var centerWeight = 1,
   rightWeight = 0;
 
 export const playerComp = {
-  schema: {
-    score: { type: "number" },
-  },
+
   init() {
     // Collision detection
     this.el.addEventListener("collide", function (e) {
@@ -22,6 +20,7 @@ export const playerComp = {
       console.log("Player has collided with ", e.detail.body.el);
 
       if (e.detail.body.el.getAttribute("coin_comp")){
+        document.getElementById('#coin_sound').components.sound.stopSound();
         document.getElementById('#coin_sound').components.sound.playSound();
         e.detail.body.el.remove() ; 
         gameController.updateScore(parseFloat(e.detail.body.el.getAttribute("coinValue")))
@@ -57,15 +56,17 @@ export const playerComp = {
       //Start all actions
       this.activateAllActions();
     });
-    this.acceleration = 1.5 ; 
+    this.acceleration = 3 ; 
   },
+
   async tick(time, timeDelta) {
     if (!mixer) return;
     this.movementController(timeDelta / 1000);
-    //this.gradualWeightUpdate(timeDelta / 1000);
+    this.gradualWeightUpdate(timeDelta / 1000);
     gameController.updateScore(timeDelta /1000); 
     mixer.update(timeDelta / 1000);
   },
+
   async movementController(timeDelta) {
     // This value is now updated asynchronously from posenet (No need to await)
     var angle = posenet.angle;
@@ -74,11 +75,13 @@ export const playerComp = {
       this.model.object3D.position.x -= angle * timeDelta * this.acceleration;
     //this.acceleration+= timeDelta /10 ; 
   },
+
   async activateAllActions() {
     actions.forEach((action) => {
       action.play();
     });
   },
+
   async gradualWeightUpdate(timeDelta) {
     var angle = posenet.angle;
 
@@ -111,6 +114,7 @@ export const playerComp = {
     setWeight(leftAction, leftWeight);
     setWeight(rightAction, rightWeight);
   },
+
 };
 
 async function setWeight(action, weight) {

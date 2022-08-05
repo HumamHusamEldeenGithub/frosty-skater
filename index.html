@@ -26,7 +26,7 @@
       Score : <div class="score-div"> 0 </div>
     </div>
     <a-scene stats physics="gravity:0">
-      <a-sound src="src: url(click.mp3)" autoplay="true" position="0 2 5"></a-sound>
+
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
@@ -35,22 +35,16 @@
         <audio id="crashed" src="./sounds/crashed.wav" preload="auto"></audio>
         <audio id="coin_sound" src="./sounds/coin_sound.mp3" preload="auto"></audio>
         <a-asset-item id="hoverboard" src="./models/Skater.glb"></a-asset-item>
-        <a-asset-item id="coin" src="./models/coin.glb"></a-asset-item>
+        
       </a-assets>
+      <a-entity id="#crashed" sound="src: #crashed"></a-entity>
+      <a-entity id="#coin_sound" sound="src: #coin_sound"></a-entity>
+
       <a-sky src="#sky"></a-sky>
+
       <a-entity particle-system="preset: snow;" position="0 0 -10"></a-entity>
-      <a-entity camera id="camera_comp">
-        <a-entity id="#crashed" sound="src: #crashed"></a-entity>
-        <a-entity id="#coin_sound" sound="src: #coin_sound"></a-entity>
-        <a-video
-          src="#webcam"
-          id="webcam_obj"
-          width="1.5"
-          height="1"
-          scale="-1 1 1"
-        >
-        </a-video>
-      </a-entity>
+
+
       <a-entity id="grids-wrapper"> </a-entity>
       <a-entity
         physics-collider
@@ -58,7 +52,19 @@
         id="player"
         kinematic-body="radius:5"
         rotation="0 0 0"
-      ></a-entity>
+      >
+      <a-entity camera id="camera_comp">
+        <!-- this is the webcam view  -->
+        <!-- <a-video
+          src="#webcam"
+          id="webcam_obj"
+          width="1.5"
+          height="1"
+          scale="-1 1 1"
+        >
+        </a-video> -->
+      </a-entity>
+    </a-entity>
     </a-scene>
   </body>
 </html>

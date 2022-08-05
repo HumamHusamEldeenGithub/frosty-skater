@@ -1,6 +1,6 @@
 var isMoving = false;
-var maxRange = 20;
 var gridDim = { x: 500, y: 500 };
+var maxRange = gridDim.x / 2;
 var maxGrids = 6;
 var gridMargin = 20;
 var score = 0 ; 

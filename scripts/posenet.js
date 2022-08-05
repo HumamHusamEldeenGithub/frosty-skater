@@ -12,7 +12,7 @@ const detector = await poseDetection.createDetector(
   poseDetection.SupportedModels.MoveNet,
   detectorConfig
 );
-document.querySelector("#loading-wrapper").remove();
+
 
 export async function detectPose() {
   try {
@@ -35,7 +35,7 @@ export async function detectPose() {
 
 export async function calculateAngle() {
   var data = await detectPose();
-  if (!data || !data[0].keypoints || data[0].keypoints.length == 0) return 0;
+  if (!data || data.length < 1 || !data[0].keypoints || data[0].keypoints.length == 0) return 0;
   var leftShoudlerFound = false,
     rightShoulderFound = false;
   var leftShoulder = new Object(),
@@ -64,4 +64,4 @@ export async function calculateAngle() {
   angle /= 2;
 }
 
-var intervalId = window.setInterval(calculateAngle, 200);
+window.setInterval(calculateAngle, 200);
