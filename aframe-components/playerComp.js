@@ -17,11 +17,21 @@ export const playerComp = {
   init() {
     // Collision detection
     this.el.addEventListener("collide", function (e) {
+
       console.log(e.detail);
       console.log("Player has collided with ", e.detail.body.el);
-      document.getElementById('#crashed').components.sound.playSound();
-      gameController.endGame();
+
+      if (e.detail.body.el.getAttribute("coin_comp")){
+        document.getElementById('#coin_sound').components.sound.playSound();
+        e.detail.body.el.remove() ; 
+        gameController.updateScore(parseFloat(e.detail.body.el.getAttribute("coinValue")))
+      } else {
+        document.getElementById('#crashed').components.sound.playSound();
+        gameController.endGame();
+      }
+
     });
+
     clock = new THREE.Clock();
     this.model = this.el;
     this.model.setAttribute("gltf-model", "#hoverboard");
@@ -53,7 +63,7 @@ export const playerComp = {
     if (!mixer) return;
     this.movementController(timeDelta / 1000);
     //this.gradualWeightUpdate(timeDelta / 1000);
-    this.updateScore(timeDelta /1000); 
+    gameController.updateScore(timeDelta /1000); 
     mixer.update(timeDelta / 1000);
   },
   async movementController(timeDelta) {
@@ -101,13 +111,6 @@ export const playerComp = {
     setWeight(leftAction, leftWeight);
     setWeight(rightAction, rightWeight);
   },
-
-  async updateScore (timeDelta) {
-    var score = parseFloat(document.querySelector('.score-div').innerHTML)
-    this.data.score +=timeDelta ; 
-    document.querySelector('.score-div').innerHTML = parseInt(this.data.score);
-  }
-
 };
 
 async function setWeight(action, weight) {

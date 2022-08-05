@@ -3,6 +3,7 @@ import { cameraComp } from "../aframe-components/cameraComp";
 import { worldComp } from "../aframe-components/worldComp";
 import { webcam } from "../aframe-components/webcam";
 import { grid } from "../aframe-components/gridComp";
+import { coinComp } from "../aframe-components/coinComp";
 import * as gameController from "./gameController";
 import "../style.css";
 
@@ -20,6 +21,7 @@ function registerComponents() {
   AFRAME.registerComponent("world_comp", worldComp);
   AFRAME.registerComponent("webcam", webcam);
   AFRAME.registerComponent("grid", grid);
+  AFRAME.registerComponent("coin_comp", coinComp);
   console.log("Registered");
 }
 

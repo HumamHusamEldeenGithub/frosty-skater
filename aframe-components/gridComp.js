@@ -22,6 +22,7 @@ export const grid = {
     this.el.appendChild(plane);
     this.velocity = new THREE.Vector3(0, 0, 10 / 100);
     this.generateObstacles();
+    this.generateCoins();
   },
   tick: async function (time, timeDelta) {
     if (gameController.isMoving) {
@@ -66,6 +67,30 @@ export const grid = {
       obstacle.setAttribute("static-body", "");
       obstacle.setAttribute("position", x_pos + " 5 " + z_pos);
       this.el.appendChild(obstacle);
+    }
+  },
+
+  generateCoins() {
+
+    var step = 10;
+    var offset
+
+    if (this.data.index == 0) 
+      offset = (gameController.gridDim.y);
+    else 
+      offset = (gameController.gridDim.y / 2) * -1 ;
+
+    for (; offset < gameController.gridDim.y / 2; offset += step * 5) {
+      var coin = document.createElement("a-box");
+      coin.setAttribute("coin_comp" , "");
+
+      var x_pos =
+        Math.floor(Math.random() * gameController.gridDim.y) -
+        gameController.gridDim.y / 2;
+      var z_pos = offset;
+      coin.setAttribute("static-body", "");
+      coin.setAttribute("position", x_pos + " 5 " + z_pos);
+      this.el.appendChild(coin);
     }
   },
 };
