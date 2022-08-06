@@ -5,14 +5,17 @@ import "@tensorflow/tfjs-backend-webgl";
 
 export var angle = 0;
 
+var detector ; 
 const detectorConfig = {
   modelType: poseDetection.movenet.modelType.SINGLEPOSE_LIGHTNING,
 };
-const detector = await poseDetection.createDetector(
-  poseDetection.SupportedModels.MoveNet,
-  detectorConfig
-);
 
+export async function initAIModel() {
+  detector = await poseDetection.createDetector(
+    poseDetection.SupportedModels.MoveNet,
+    detectorConfig
+  );
+}
 
 export async function detectPose() {
   try {

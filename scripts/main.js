@@ -9,6 +9,7 @@ import "../style.css";
 import * as posenet from "./posenet";
 
 var scene = document.querySelector("a-scene");
+posenet.initAIModel() ; 
 
 if (scene.hasLoaded) {
   initScene();
