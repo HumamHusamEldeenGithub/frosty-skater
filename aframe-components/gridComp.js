@@ -3,7 +3,7 @@ import * as gameController from "../scripts/gameController";
 export const grid = {
   schema: {
     position: { type: "vec3" },
-    index: {type: "int"}
+    index: { type: "int" },
   },
   multiple: true,
   init: async function () {
@@ -43,24 +43,32 @@ export const grid = {
     }
   },
   generateObstacles() {
-
     var boxDepth = 10;
-    var boxWidth = 20;
+    var boxWidth = 50;
     var boxHeight = 10;
 
-    var offset
+    var offset;
 
-    if (this.data.index == 0) 
-      offset = (gameController.gridDim.y);
-    else 
-      offset = (gameController.gridDim.y / 2) * -1 ;
+    if (this.data.index == 0) offset = gameController.gridDim.y;
+    else offset = (gameController.gridDim.y / 2) * -1;
 
-    for (; offset < gameController.gridDim.y / 2; offset += boxDepth * 5) {
+    // Divide the plane into 3 sections
+    var planSection = this.generateRandomIndex(0, 2, -1);
+
+    var x_offset = -gameController.gridDim.x / 2;
+
+    for (; offset < gameController.gridDim.y / 2; offset += boxDepth * 10) {
       var obstacle = document.createElement("a-box");
-      var x_pos =
-        Math.floor(Math.random() * gameController.gridDim.y) -
-        gameController.gridDim.y / 2;
+
+      var x_pos = x_offset + (planSection * gameController.gridDim.x) / 2;
+      if (x_pos < 0) {
+        x_pos += boxWidth / 2;
+      } else if (x_pos > 0) {
+        x_pos -= boxWidth / 2;
+      }
+
       var z_pos = offset;
+
       obstacle.setAttribute("width", boxWidth);
       obstacle.setAttribute("height", boxHeight);
       obstacle.setAttribute("depth", boxDepth);
@@ -68,30 +76,32 @@ export const grid = {
       obstacle.setAttribute("position", x_pos + " 5 " + z_pos);
       obstacle.setAttribute("material", "color:gray;");
       this.el.appendChild(obstacle);
+      planSection = this.generateRandomIndex(0, 2, planSection);
     }
   },
 
   generateCoins() {
-
     var step = 10;
-    var offset
+    var offset;
 
-    if (this.data.index == 0) 
-      offset = (gameController.gridDim.y);
-    else 
-      offset = (gameController.gridDim.y / 2) * -1 ;
+    if (this.data.index == 0) offset = gameController.gridDim.y;
+    else offset = (gameController.gridDim.y / 2) * -1;
 
     for (; offset < gameController.gridDim.y / 2; offset += step * 5) {
       var coin = document.createElement("a-box");
-      coin.setAttribute("coin_comp" , "");
+      coin.setAttribute("coin_comp", "");
 
       var x_pos =
-        Math.floor(Math.random() * gameController.gridDim.y) -
-        gameController.gridDim.y / 2;
+        Math.floor(Math.random() * gameController.gridDim.x) -
+        gameController.gridDim.x / 2;
       var z_pos = offset;
       coin.setAttribute("static-body", "");
       coin.setAttribute("position", x_pos + " 5 " + z_pos);
       this.el.appendChild(coin);
     }
+  },
+  generateRandomIndex(min, max, prev) {
+    var num = Math.floor(Math.random() * (max - min + 1)) + min;
+    return prev == num ? this.generateRandomIndex(min, max, prev) : num;
   },
 };

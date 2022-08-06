@@ -1,13 +1,13 @@
 var isMoving = false;
-var gridDim = { x: 500, y: 500 };
+var gridDim = { x: 150, y: 500 };
 var maxRange = gridDim.x / 2;
 var maxGrids = 6;
 var gridMargin = 20;
-var score = 0 ; 
+var score = 0;
 
 function startGame() {
   isMoving = true;
-  score = 0 ; 
+  score = 0;
   document.getElementById("grids-wrapper").innerHTML = 0;
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
   document.getElementById("player").setAttribute("position", "-2 3 -10");
@@ -20,6 +20,7 @@ function startGame() {
 function endGame() {
   isMoving = false;
   document.getElementById("gameover-wrapper").style = "display:flex";
+  document.querySelector(".final-score").innerHTML = parseInt(score);
 }
 
 function initGrids() {
@@ -29,15 +30,18 @@ function initGrids() {
   for (var i = 0; i < maxGrids; i++) {
     var newGrid = document.createElement("a-entity");
     newGrid.id = "grid";
-    newGrid.setAttribute("grid", "position:0 0 " + offset + "; index: " + i +" ;");
+    newGrid.setAttribute(
+      "grid",
+      "position:0 0 " + offset + "; index: " + i + " ;"
+    );
     gridsWrapper.appendChild(newGrid);
     offset -= gridDim.y;
   }
 }
 
-async function updateScore (increment) {
-  score +=increment ; 
-  document.querySelector('.score-div').innerHTML = parseInt(score);
+async function updateScore(increment) {
+  score += increment;
+  document.querySelector(".score-div").innerHTML = parseInt(score);
 }
 export {
   isMoving,
@@ -48,5 +52,5 @@ export {
   startGame,
   endGame,
   initGrids,
-  updateScore
+  updateScore,
 };
