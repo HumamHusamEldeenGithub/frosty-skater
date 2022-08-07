@@ -8,8 +8,9 @@ import * as gameController from "./gameController";
 import "../style.css";
 import * as posenet from "./posenet";
 
+
 var scene = document.querySelector("a-scene");
-posenet.initAIModel() ; 
+
 
 if (scene.hasLoaded) {
   initScene();
@@ -34,9 +35,9 @@ function attachComoponents() {
 }
 
 async function initScene() {
+  await posenet.initAIModel() ;
   registerComponents();
-  attachComoponents();
-  posenet.detectPose();
+  attachComoponents(); 
   gameController.startGame();
   document.querySelector("#loading-wrapper").remove();
 }

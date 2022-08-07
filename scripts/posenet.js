@@ -2,6 +2,7 @@ import * as poseDetection from "@tensorflow-models/pose-detection";
 import * as tf from "@tensorflow/tfjs-core";
 // Register one of the TF.js backends.
 import "@tensorflow/tfjs-backend-webgl";
+import * as gameController from "./gameController";
 
 export var angle = 0;
 
@@ -37,6 +38,8 @@ export async function detectPose() {
 }
 
 export async function calculateAngle() {
+  if (!gameController.isMoving)
+    return;
   var data = await detectPose();
   if (!data || data.length < 1 || !data[0].keypoints || data[0].keypoints.length == 0) return 0;
   var leftShoudlerFound = false,
