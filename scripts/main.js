@@ -12,11 +12,11 @@ import * as posenet from "./posenet";
 var scene = document.querySelector("a-scene");
 
 
-if (scene.hasLoaded) {
-  initScene();
-} else {
-  scene.addEventListener("loaded", initScene);
-}
+// if (scene.hasLoaded) {
+//   initScene();
+// } else {
+//   scene.addEventListener("loaded", initScene);
+// }
 
 function registerComponents() {
   AFRAME.registerComponent("player_comp", playerComp);
@@ -35,9 +35,20 @@ function attachComoponents() {
 }
 
 async function initScene() {
-  await posenet.initAIModel() ;
+  document.getElementById('main-menu').style.display = "none" ; 
+  document.querySelector("#loading-wrapper").style.display="block";
   registerComponents();
   attachComoponents(); 
   gameController.startGame();
-  document.querySelector("#loading-wrapper").remove();
+  document.querySelector("#loading-wrapper").style.display="none";
 }
+
+async function displayMainMenu () {
+  document.getElementById('main-menu').style.display = "flex" ; 
+  document.getElementById('start-btn').onclick = initScene ; 
+  document.getElementById('credits-btn').onclick = ()=>console.log("ENTER CREDITS");
+  await posenet.initAIModel() ;
+  await posenet.calculateAngle();
+}
+
+displayMainMenu();

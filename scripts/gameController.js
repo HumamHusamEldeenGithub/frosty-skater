@@ -19,8 +19,16 @@ function startGame() {
 
 function endGame() {
   isMoving = false;
+  var currentScore = parseInt(score);
+  var highestScore = localStorage.getItem("highest-score");
+
   document.getElementById("gameover-wrapper").style = "display:flex";
-  document.querySelector(".final-score").innerHTML = parseInt(score);
+  document.querySelector(".final-score").innerHTML = currentScore;
+
+  if (!highestScore || isNaN(parseInt(highestScore)) ||  parseInt(highestScore) < currentScore) highestScore = currentScore;
+
+  localStorage.setItem("highest-score", highestScore);
+  document.querySelector(".highest-score").innerHTML = highestScore;
 }
 
 function initGrids() {
@@ -43,6 +51,7 @@ async function updateScore(increment) {
   score += increment;
   document.querySelector(".score-div").innerHTML = parseInt(score);
 }
+
 export {
   isMoving,
   maxRange,

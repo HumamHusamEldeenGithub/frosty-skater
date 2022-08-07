@@ -15,38 +15,55 @@
     <script></script>
   </head>
   <body>
+    <div id="main-menu">
+      <img src="./textures/logo.png" class="logo-img" />
+      <button id="start-btn" class="custom-btn" role="button">Play</button>
+      <button id="credits-btn" class="custom-btn" role="button">Credits</button>
+    </div>
+
     <div id="loading-wrapper" class="fullscreen-wrapper">
       <h1>Loading...</h1>
     </div>
     <div id="gameover-wrapper" class="fullscreen-wrapper display-none">
       <h1>Game Over</h1>
-      <h1 style="display: flex;">Your score : <div class="final-score"></div></h1>
+      <h1 style="display: flex">
+        Your score :
+        <div class="final-score"></div>
+      </h1>
+      <h1 style="display: flex">
+        Highest score :
+        <div class="highest-score"></div>
+      </h1>
       <button id="startBtn">Start again</button>
     </div>
     <div class="score-wrapper">
-      Score : <div class="score-div"> 0 </div>
+      Score :
+      <div class="score-div">0</div>
     </div>
     <a-scene stats physics="gravity:0">
-
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
         <img id="snow" src="./textures/snow.jpg" />
         <img id="snow_map" src="./textures/snow_map.jpg" />
         <audio id="crashed" src="./sounds/crashed.wav" preload="auto"></audio>
-        <audio id="coin_sound" src="./sounds/coin_sound.mp3" preload="auto"></audio>
+        <audio
+          id="coin_sound"
+          src="./sounds/coin_sound.mp3"
+          preload="auto"
+        ></audio>
         <a-asset-item id="hoverboard" src="./models/Skater.glb"></a-asset-item>
-        
+        <a-asset-item id="cloud" src="./models/Cloud_1.glb"></a-asset-item>
       </a-assets>
-      <a-entity id="#crashed" sound="src: #crashed"></a-entity>
-      <a-entity id="#coin_sound" sound="src: #coin_sound"></a-entity>
 
       <a-sky src="#sky"></a-sky>
 
       <a-entity particle-system="preset: snow;" position="0 0 -10"></a-entity>
 
-
       <a-entity id="grids-wrapper"> </a-entity>
+
+      <a-entity position="0 0 20" gltf-model="#cloud"></a-entity>
+
       <a-entity
         physics-collider
         position="0 3 0"
@@ -54,9 +71,9 @@
         kinematic-body="radius:5"
         rotation="0 0 0"
       >
-      <a-entity camera id="camera_comp">
-        <!-- this is the webcam view  -->
-        <!-- <a-video
+        <a-entity camera id="camera_comp">
+          <!-- this is the webcam view  -->
+          <!-- <a-video
           src="#webcam"
           id="webcam_obj"
           width="1.5"
@@ -64,9 +81,18 @@
           scale="-1 1 1"
         >
         </a-video> -->
+          <a-entity
+            position="0 0 10"
+            id="#crashed"
+            sound="src: #crashed"
+          ></a-entity>
+          <a-entity
+            position="0 0 10"
+            id="#coin_sound"
+            sound="src: #coin_sound"
+          ></a-entity>
+        </a-entity>
       </a-entity>
-    </a-entity>
     </a-scene>
   </body>
 </html>
-
