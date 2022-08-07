@@ -4,20 +4,12 @@ import { worldComp } from "../aframe-components/worldComp";
 import { webcam } from "../aframe-components/webcam";
 import { grid } from "../aframe-components/gridComp";
 import { coinComp } from "../aframe-components/coinComp";
-import * as gameController from "./gameController";
-import "../style.css";
-import * as posenet from "./posenet";
 import { gridsFence } from "../aframe-components/gridFenceComp";
-
+import * as gameController from "./gameController";
+import * as posenet from "./posenet";
+import "../style.css";
 
 var scene = document.querySelector("a-scene");
-
-
-// if (scene.hasLoaded) {
-//   initScene();
-// } else {
-//   scene.addEventListener("loaded", initScene);
-// }
 
 function registerComponents() {
   AFRAME.registerComponent("player_comp", playerComp);
@@ -52,7 +44,7 @@ async function displayMainMenu () {
   document.getElementById('start-btn').onclick = initScene ; 
   document.getElementById('credits-btn').onclick = ()=>console.log("ENTER CREDITS");
   await posenet.initAIModel() ;
-  await posenet.calculateAngle();
+  posenet.calculateAngle();
 }
 
 displayMainMenu();
