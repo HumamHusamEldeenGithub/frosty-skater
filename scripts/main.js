@@ -40,6 +40,7 @@ async function initScene() {
 }
 
 async function displayMainMenu () {
+  
   document.getElementById('main-menu').style.display = "flex" ; 
   document.getElementById('start-btn').onclick = initScene ; 
   document.getElementById('credits-btn').onclick = ()=>console.log("ENTER CREDITS");
