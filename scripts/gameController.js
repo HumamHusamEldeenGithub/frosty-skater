@@ -4,7 +4,7 @@ var gridDim = { x: 40, y: 40 };
 var maxRange = gridDim.x / 2 - playerWidth;
 var maxGrids = 6;
 var gridMargin = 20;
-var playerVelocity = new THREE.Vector3(0, 0, 0.005);
+var playerVelocity = new THREE.Vector3(0, 0, 0.02);
 var playerHearts = 0 ;  
 var powerUpsList = [] ; 
 
@@ -90,5 +90,6 @@ export {
   playerVelocity,
   powerUpsList,
   playerHearts,
-  decreasePlayerHeart
+  decreasePlayerHeart , 
+  increasePlayerHearts
 };
