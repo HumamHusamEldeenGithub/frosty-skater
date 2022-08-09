@@ -14,6 +14,48 @@
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
     <script></script>
   </head>
+  
+  <script type="x-shader/x-vertex" id="vertexshader">
+
+    uniform float amplitude;
+
+    attribute vec3 customColor;
+    attribute vec3 displacement;
+
+    varying vec3 vNormal;
+    varying vec3 vColor;
+
+    void main() {
+
+      vNormal = normal;
+      vColor = customColor;
+
+      vec3 newPosition = position + normal * amplitude * displacement;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
+
+    }
+
+  </script>
+  
+  <script type="x-shader/x-fragment" id="fragmentshader">
+
+    varying vec3 vNormal;
+    varying vec3 vColor;
+
+    void main() {
+
+      const float ambient = 0.4;
+
+      vec3 light = vec3( 1.0 );
+      light = normalize( light );
+
+      float directional = max( dot( vNormal, light ), 0.0 );
+
+      gl_FragColor = vec4( ( directional + ambient ) * vColor, 1.0 );
+
+    }
+
+  </script>
   <body>
     <div id="main-menu">
       <img src="./textures/logo.png" class="logo-img" />
@@ -94,11 +136,14 @@
           preload="auto"
         ></audio>
         <audio id="hit" src="./sounds/hit.mp3" preload="auto"></audio>
-        <a-asset-item id="hoverboard" src="./models/Skater.glb"></a-asset-item>
+        <a-asset-item id="hoverboard" src="./models/Skate.glb"></a-asset-item>
         <a-asset-item id="cloud" src="./models/Cloud_3.glb"></a-asset-item>
         <a-asset-item id="ground" src="./models/Ground.glb"></a-asset-item>
         <a-asset-item id="cliff" src="./models/Cliff_1.glb"></a-asset-item>
         <a-asset-item id="coin" src="./models/Coin.glb"></a-asset-item>
+        <a-asset-item id="obstacle_1" src="./models/Obstacle_1.glb"></a-asset-item>
+        <a-asset-item id="obstacle_2" src="./models/Obstacle_2.glb"></a-asset-item>
+        
       </a-assets>
 
       <a-sky src="#sky"></a-sky>
@@ -106,9 +151,11 @@
       <a-entity particle-system="preset: snow;" position="0 0 -10"></a-entity>
 
       <a-entity id="grids-wrapper"> </a-entity>
+      
+      <a-entity light="type: ambient; color: #FFF; intensity: 0.5"></a-entity>
+      <a-entity light="type: directional; color: #FFF; intensity: 0.5" position="-0.5 1 1"></a-entity>
       <a-entity
         physics-collider
-        kinematic-body="radius:5"
         position="0 3 0"
         id="player"
         rotation="0 0 0"

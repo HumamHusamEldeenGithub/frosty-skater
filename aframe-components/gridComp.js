@@ -9,6 +9,14 @@ export const grid = {
   },
   multiple: true,
   init: async function () {
+    const uniforms = ["ff", "dd"];
+    const shaderMaterial = new THREE.ShaderMaterial( {
+
+      uniforms: uniforms,
+      vertexShader: document.getElementById( 'vertexshader' ).textContent,
+      fragmentShader: document.getElementById( 'fragmentshader' ).textContent
+
+    } );
     this.model = this.el;
     this.model.object3D.position.copy(this.data.position);
 
@@ -33,7 +41,7 @@ export const grid = {
   },
   tick: async function (time, timeDelta) {
     if (gameController.isMoving) {
-      if (this.model.object3D.position.z >= gameController.gridDim.y / 2) {
+      if (this.model.object3D.position.z >= gameController.gridDim.y / 1.5) {
         this.resetGrid();
       }
       var dist = new THREE.Vector3()
@@ -45,12 +53,13 @@ export const grid = {
   },
 
   resetGrid() {
+    var newPos = gameController.moveCellToBehind().getAttribute("position");
+    console.log(newPos);
     this.model.object3D.position.set(
       0,
       0,
-      gameController.gridDim.y * gameController.maxGrids * -1 +
-        gameController.gridDim.y / 2 +
-        gameController.gridMargin
+      newPos.z -
+      gameController.gridDim.y
     );
     this.el.children[1].innerHTML = "";
     this.generateObstacles();
@@ -60,7 +69,7 @@ export const grid = {
   generateObstacles() {
     this.data.obstaclesIndexes = [];
     var boxDepth = 2.5;
-    var boxWidth = gameController.gridDim.x / 3.5;
+    var boxWidth = gameController.gridDim.x / 5;
     var boxHeight = 5;
 
     var z_offset;
@@ -76,10 +85,11 @@ export const grid = {
 
     for (
       ;
-      z_offset < gameController.gridDim.y / 2;
-      z_offset += (gameController.gridDim.y) / 2
+      z_offset < gameController.gridDim.y;
+      z_offset += (gameController.gridDim.y)
     ) {
-      var obstacle = document.createElement("a-box");
+      var obstacle = document.createElement("a-entity");
+      obstacle.setAttribute("gltf-model", "#obstacle_" +(Math.floor(Math.random() * 2)+1).toString());
 
       var x_pos = x_offset + (planSection * gameController.gridDim.x) / 2;
       if (x_pos < 0) {
@@ -94,7 +104,7 @@ export const grid = {
       obstacle.setAttribute("height", boxHeight);
       obstacle.setAttribute("depth", boxDepth);
       obstacle.setAttribute("static-body", "");
-      obstacle.setAttribute("position", x_pos + " 2.5 " + z_pos);
+      obstacle.setAttribute("position", x_pos + " 0 " + z_pos);
       obstacle.setAttribute("material", "color:gray;");
       this.el.children[1].appendChild(obstacle);
 
@@ -106,7 +116,7 @@ export const grid = {
 
   generateCoins() {
     var step = 1;
-    var x_offset = -gameController.gridDim.x / 2;
+    var x_offset = -gameController.gridDim.x / 3;
     var z_offset = 0;
 
     for (
@@ -122,13 +132,13 @@ export const grid = {
       var selectedSection = this.getSectionIndex(
         Math.min(currObtacleIndex, nextObtacleIndex),
         Math.max(currObtacleIndex, nextObtacleIndex)
-      );
+      ) - 1;
       var x_pos =
-        (x_offset + (gameController.gridDim.x / 2) * selectedSection) / 2;
+        (x_offset * selectedSection);
       var z_pos = z_offset;
 
       coin.setAttribute("static-body", "");
-      coin.setAttribute("position", x_pos + " 5 " + z_pos);
+      coin.setAttribute("position", x_pos + " 2 " + z_pos);
       this.el.children[1].appendChild(coin);
     }
   },

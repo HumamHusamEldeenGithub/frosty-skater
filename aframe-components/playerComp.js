@@ -48,10 +48,10 @@ export const playerComp = {
   async tick(time, timeDelta) {
     if (!mixer) return;
     this.movementController(timeDelta / 1000);
-    this.gradualWeightUpdate(timeDelta / 1000);
+    //this.gradualWeightUpdate(timeDelta / 1000);
     this.decreasePowerUpsDuration(timeDelta / 1000);
     gameController.updateScore(timeDelta / 1000);
-    mixer.update(timeDelta / 1000);
+    //mixer.update(timeDelta / 1000);
   },
 
   async checkCollision(e) {

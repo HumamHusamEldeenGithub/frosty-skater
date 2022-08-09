@@ -2,11 +2,13 @@ var isMoving = false;
 var playerWidth = 2;
 var gridDim = { x: 40, y: 40 };
 var maxRange = gridDim.x / 2 - playerWidth;
-var maxGrids = 6;
+var maxGrids = 8;
 var gridMargin = 20;
 var playerVelocity = new THREE.Vector3(0, 0, 0.02);
 var playerHearts = 0 ;  
 var powerUpsList = [] ; 
+var gridCells = [];
+var furthestCellIndex = 0;
 
 
 var score = 0;
@@ -18,11 +20,12 @@ function startGame() {
   document.querySelector('.player-stats').style.display="block";
   document.getElementById("grids-wrapper").innerHTML = 0;
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
-  document.getElementById("player").setAttribute("position", "-2 3 -10");
+  document.getElementById("player").setAttribute("position", "0 3 -10");
   document.getElementById("gameover-wrapper").style = "display:none";
   var startBtn = document.getElementById("startBtn");
   if (!onclick) startBtn.onclick = startGame;
   initGrids();
+  furthestCellIndex = maxGrids - 1;
 }
 
 function endGame() {
@@ -57,6 +60,7 @@ function initGrids() {
     );
     gridsWrapper.appendChild(newGrid);
     offset -= gridDim.y;
+    gridCells.push(newGrid);
   }
 }
 
@@ -78,6 +82,12 @@ function increasePlayerHearts(increment) {
   document.querySelector(".player-hearts-value").innerHTML = playerHearts ; 
 }
 
+function moveCellToBehind(){
+  if(furthestCellIndex >= maxGrids)
+    furthestCellIndex = 0 ;
+  return gridCells[furthestCellIndex++];
+}
+
 export {
   isMoving,
   maxRange,
@@ -91,6 +101,7 @@ export {
   playerVelocity,
   powerUpsList,
   playerHearts,
-  decreasePlayerHeart , 
-  increasePlayerHearts
+  decreasePlayerHeart, 
+  increasePlayerHearts,
+  moveCellToBehind
 };
