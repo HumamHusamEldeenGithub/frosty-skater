@@ -1,6 +1,6 @@
 var isMoving = false;
 var playerWidth = 2;
-var gridDim = { x: 150, y: 500 };
+var gridDim = { x: 40, y: 40 };
 var maxRange = gridDim.x / 2 - playerWidth;
 var maxGrids = 6;
 var gridMargin = 20;
@@ -17,7 +17,6 @@ function startGame() {
   var startBtn = document.getElementById("startBtn");
   if (!onclick) startBtn.onclick = startGame;
   initGrids();
-  initGridFence();
 }
 
 function endGame() {
@@ -55,33 +54,6 @@ function initGrids() {
   }
 }
 
-function initGridFence() {
-  var gridsFence = document.getElementById("grids-fence");
-  gridsFence.innerHTML = "";
-
-  var gridLength = gridDim.y * maxGrids;
-
-  var x_offset = -gridDim.x / 2;
-  var y_center = gridLength / 2;
-
-  // Left fence
-  var leftFence = createFence(x_offset, y_center, gridLength);
-
-  // Right Fence
-  var rightFence = createFence(-x_offset, y_center, gridLength);
-
-  gridsFence.appendChild(leftFence);
-  gridsFence.appendChild(rightFence);
-}
-
-function createFence(x, y, length) {
-  var fence = document.createElement("a-box");
-  fence.setAttribute("gridFence", "");
-  fence.setAttribute("position", x + " 0 " + -y);
-  fence.setAttribute("height", 25);
-  fence.setAttribute("depth", length + 10);
-  return fence;
-}
 
 async function updateScore(increment) {
   score += increment;
@@ -97,6 +69,5 @@ export {
   startGame,
   endGame,
   initGrids,
-  initGridFence,
   updateScore,
 };

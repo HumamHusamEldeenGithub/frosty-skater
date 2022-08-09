@@ -17,7 +17,7 @@ function registerComponents() {
   AFRAME.registerComponent("world_comp", worldComp);
   AFRAME.registerComponent("webcam", webcam);
   AFRAME.registerComponent("grid", grid);
-  AFRAME.registerComponent("gridsFence", gridsFence);
+  AFRAME.registerComponent("grid-fence", gridsFence);
   AFRAME.registerComponent("coin_comp", coinComp);
   console.log("Registered");
 }

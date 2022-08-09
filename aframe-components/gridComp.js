@@ -1,4 +1,5 @@
 import * as gameController from "../scripts/gameController";
+import { gridsFence } from "../aframe-components/gridFenceComp";
 
 export const grid = {
   schema: {
@@ -10,24 +11,21 @@ export const grid = {
   init: async function () {
     this.model = this.el;
     this.model.object3D.position.copy(this.data.position);
-    var plane = document.createElement("a-plane");
 
-    plane.setAttribute("rotation", "-90 0 0");
-    plane.setAttribute(
-      "material",
-      "color: #FFFFFF;src:#snow;repeat:50 50; normal-map:#snow_map;normal-texture-repeat:50 50;"
-    );
-    plane.setAttribute(
-      "scale",
-      gameController.gridDim.x + " " + gameController.gridDim.y + " 1"
-    );
-
+    var plane = document.createElement("a-entity");
+    var fence = document.createElement("a-entity");
     var elements = document.createElement('a-entity') ; 
+
+    plane.setAttribute("gltf-model", "#ground");
+    
+    fence.setAttribute("grid-fence", "");
+
     elements.classList.add('elements') ; 
 
     this.el.appendChild(plane);
     this.el.appendChild(elements) ; 
-    this.velocity = new THREE.Vector3(0, 0, 0.1);
+    this.el.appendChild(fence);
+    this.velocity = new THREE.Vector3(0, 0, 0.005);
 
     this.speed = 0.0005 ; 
 
@@ -62,9 +60,9 @@ export const grid = {
 
   generateObstacles() {
     this.data.obstaclesIndexes = [] ; 
-    var boxDepth = 10;
-    var boxWidth = 50;
-    var boxHeight = 10;
+    var boxDepth = 5;
+    var boxWidth = gameController.gridDim.x / 3.5;
+    var boxHeight = 5;
 
     var z_offset;
 
@@ -76,7 +74,7 @@ export const grid = {
 
     var x_offset = -gameController.gridDim.x / 2;
 
-    for (; z_offset < gameController.gridDim.y / 2; z_offset += boxDepth * 10) {
+    for (; z_offset < gameController.gridDim.y / 2; z_offset += boxDepth * gameController.gridDim.y / 2) {
       var obstacle = document.createElement("a-box");
 
       var x_pos = x_offset + (planSection * gameController.gridDim.x) / 2;
@@ -92,7 +90,7 @@ export const grid = {
       obstacle.setAttribute("height", boxHeight);
       obstacle.setAttribute("depth", boxDepth);
       obstacle.setAttribute("static-body", "");
-      obstacle.setAttribute("position", x_pos + " 5 " + z_pos);
+      obstacle.setAttribute("position", x_pos + " 2.5 " + z_pos);
       obstacle.setAttribute("material", "color:gray;");
       this.el.children[1].appendChild(obstacle);
 
@@ -103,29 +101,26 @@ export const grid = {
   },
 
   generateCoins() {
-    var step = 10;
+    var step = 1;
     var x_offset = -gameController.gridDim.x / 2;
-    var z_offset ;
-
-    if (this.data.index == 0) z_offset = gameController.gridDim.y;
-    else z_offset = (gameController.gridDim.y / 2) * -1;
+    var z_offset = 0 ;
 
     for (
       var index = 0;
       z_offset < gameController.gridDim.y / 2;
       index++, z_offset += step * 10
     ) {
-      var coin = document.createElement("a-box");
+      var coin = document.createElement("a-entity");
       coin.setAttribute("coin_comp", "");
-
       var currObtacleIndex = this.data.obstaclesIndexes[index];
       var nextObtacleIndex = this.data.obstaclesIndexes[index + 1];
 
+
+      console.log(this.data.obstaclesIndexes);
       var selectedSection = this.getSectionIndex(
         Math.min(currObtacleIndex, nextObtacleIndex),
         Math.max(currObtacleIndex, nextObtacleIndex)
       );
-
       var x_pos =
         (x_offset + (gameController.gridDim.x / 2) * selectedSection) / 2;
       var z_pos = z_offset;
@@ -143,5 +138,6 @@ export const grid = {
     if (curr == 0 && next == 1) return 2;
     if (curr == 0 && next == 2) return 1;
     if (curr == 1 && next == 2) return 0;
+    else return 1;
   },
 };
