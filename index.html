@@ -36,11 +36,15 @@
       </h1>
       <button id="startBtn">Start again</button>
     </div>
+    <div class="powerup-wrapper"></div>
+    <div class="player-hearts-wrapper"> Hearts : <div class="player-hearts-value">0</div>
+    </div>
     <div class="score-wrapper">
       Score :
       <div class="score-div">0</div>
     </div>
-    <a-scene stats physics="gravity:0">
+    <!-- stats -->
+    <a-scene physics="gravity:0">
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
@@ -52,6 +56,7 @@
           src="./sounds/coin_sound.mp3"
           preload="auto"
         ></audio>
+        <audio id="hit" src="./sounds/hit.mp3" preload="auto"></audio>
         <a-asset-item id="hoverboard" src="./models/Skater.glb"></a-asset-item>
         <a-asset-item id="cloud" src="./models/Cloud_3.glb"></a-asset-item>
         <a-asset-item id="ground" src="./models/Ground.glb"></a-asset-item>
@@ -65,11 +70,12 @@
 
       <a-entity id="grids-wrapper"> </a-entity>
       <a-entity
+        physics-collider
+        kinematic-body="radius:5"
         position="0 3 0"
         id="player"
         rotation="0 0 0"
       >
-      
         <a-entity camera id="camera_comp">
           <!-- this is the webcam view  -->
           <!-- <a-video
@@ -90,6 +96,7 @@
             id="#coin_sound"
             sound="src: #coin_sound"
           ></a-entity>
+          <a-entity position="0 0 10" id="#hit" sound="src: #hit"></a-entity>
         </a-entity>
       </a-entity>
     </a-scene>

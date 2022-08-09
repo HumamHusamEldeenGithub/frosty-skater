@@ -4,12 +4,17 @@ var gridDim = { x: 40, y: 40 };
 var maxRange = gridDim.x / 2 - playerWidth;
 var maxGrids = 6;
 var gridMargin = 20;
+var playerVelocity = new THREE.Vector3(0, 0, 0.005);
+var playerHearts = 0 ;  
+var powerUpsList = [] ; 
+
 
 var score = 0;
 
 function startGame() {
   isMoving = true;
   score = 0;
+  increasePlayerHearts(3);
   document.getElementById("grids-wrapper").innerHTML = 0;
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
   document.getElementById("player").setAttribute("position", "-2 3 -10");
@@ -60,6 +65,18 @@ async function updateScore(increment) {
   document.querySelector(".score-div").innerHTML = parseInt(score);
 }
 
+function decreasePlayerHeart() {
+  playerHearts -- ; 
+  document.querySelector(".player-hearts-value").innerHTML = playerHearts ;
+  if (playerHearts == 0)
+    endGame() ; 
+}
+
+function increasePlayerHearts(increment) {
+  playerHearts += increment ; 
+  document.querySelector(".player-hearts-value").innerHTML = playerHearts ; 
+}
+
 export {
   isMoving,
   maxRange,
@@ -70,4 +87,8 @@ export {
   endGame,
   initGrids,
   updateScore,
+  playerVelocity,
+  powerUpsList,
+  playerHearts,
+  decreasePlayerHeart
 };

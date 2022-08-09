@@ -33,6 +33,24 @@ html {
   font-size: 2rem;
   margin-right:20px;
 }
+.powerup-wrapper{
+  z-index: 9;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  font-size: 2rem;
+  margin-left:20px;
+}
+.player-hearts-wrapper{
+  z-index: 9;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  display: flex;
+  font-size: 2rem;
+  justify-content: center;
+}
 #main-menu {
   z-index: 8;
   position: absolute;
