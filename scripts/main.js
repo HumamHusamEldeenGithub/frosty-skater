@@ -43,9 +43,20 @@ async function displayMainMenu () {
   
   document.getElementById('main-menu').style.display = "flex" ; 
   document.getElementById('start-btn').onclick = initScene ; 
-  document.getElementById('credits-btn').onclick = ()=>console.log("ENTER CREDITS");
+  document.getElementById('how-to-play-btn').onclick = ()=> displayPanel('.how-to-play-panel') ; 
+  document.getElementById('how-to-play-back-btn').onclick =()=> hidePanel('.how-to-play-panel');
+  document.getElementById('credits-btn').onclick = ()=> displayPanel('.credits-panel') ;
+  document.getElementById('credits-back-btn').onclick =()=> hidePanel('.credits-panel');
   await posenet.initAIModel() ;
   posenet.calculateAngle();
+}
+
+function displayPanel(selector) {
+  document.querySelector(selector).style.display="flex";
+}
+
+function hidePanel(selector) {
+  document.querySelector(selector).style.display="none";
 }
 
 displayMainMenu();

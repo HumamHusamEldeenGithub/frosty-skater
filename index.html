@@ -18,7 +18,40 @@
     <div id="main-menu">
       <img src="./textures/logo.png" class="logo-img" />
       <button id="start-btn" class="custom-btn" role="button">Play</button>
+      <button id="how-to-play-btn" class="custom-btn" role="button">
+        How to play
+      </button>
       <button id="credits-btn" class="custom-btn" role="button">Credits</button>
+      <div class="how-to-play-panel">
+        <img src="./textures/lean_shoulders.png" />
+        <div class="how-to-play-desc">
+          You have to lean your shoulders to left and right to controll the
+          character
+        </div>
+        <button id="how-to-play-back-btn" class="custom-btn" role="button">
+          Back
+        </button>
+      </div>
+      <div class="credits-panel">
+        <div class="credits-desc">
+          Developed and Designed by :
+          <br />
+          <br />
+          Humam Husam Eldeen
+          <br />
+          <br />
+          Moey Misrabi
+          <br />
+          <br />
+          MHD Anas AL-Shiekh Bakri
+          <br />
+          <br />
+          May Deep
+        </div>
+        <button id="credits-back-btn" class="custom-btn" role="button">
+          Back
+        </button>
+      </div>
     </div>
 
     <div id="loading-wrapper" class="fullscreen-wrapper">
@@ -36,12 +69,16 @@
       </h1>
       <button id="startBtn">Start again</button>
     </div>
-    <div class="powerup-wrapper"></div>
-    <div class="player-hearts-wrapper"> Hearts : <div class="player-hearts-value">0</div>
-    </div>
-    <div class="score-wrapper">
-      Score :
-      <div class="score-div">0</div>
+    <div class="player-stats">
+      <div class="powerup-wrapper"></div>
+      <div class="player-hearts-wrapper">
+        Hearts :
+        <div class="player-hearts-value">0</div>
+      </div>
+      <div class="score-wrapper">
+        Score :
+        <div class="score-div">0</div>
+      </div>
     </div>
     <!-- stats -->
     <a-scene physics="gravity:0">

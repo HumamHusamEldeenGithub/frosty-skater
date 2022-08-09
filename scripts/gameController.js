@@ -15,6 +15,7 @@ function startGame() {
   isMoving = true;
   score = 0;
   increasePlayerHearts(3);
+  document.querySelector('.player-stats').style.display="block";
   document.getElementById("grids-wrapper").innerHTML = 0;
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
   document.getElementById("player").setAttribute("position", "-2 3 -10");
