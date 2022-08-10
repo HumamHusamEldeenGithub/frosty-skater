@@ -49,7 +49,7 @@ function endGame() {
 }
 
 function initGrids() {
-  console.log("INIT GRIDS");
+  gridCells = [];
   var gridsWrapper = document.getElementById("grids-wrapper");
   gridsWrapper.innerHTML = "";
   var offset = (gridDim.y / 2) * -1;
