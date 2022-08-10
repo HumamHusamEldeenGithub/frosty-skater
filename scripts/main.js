@@ -40,17 +40,23 @@ function attachComoponents() {
   //document.getElementById("webcam_obj").setAttribute("webcam", "");
 }
 
-async function initScene() {
+async function startGame() {
   document.getElementById('main-menu').classList.add('fade-in') ; 
   setTimeout( () => {
     document.getElementById('main-menu').style.display = "none" ; 
     gameController.startGame();
   },2500);
 }
+function startAgain(){
+  posenet.resetAngle();
+  gameController.initNewWorld();
+  startGame();
+}
 
 async function displayMainMenu () {
   document.getElementById('main-menu').style.display = "flex" ; 
-  document.getElementById('start-btn').onclick = initScene ; 
+  document.getElementById('start-btn').onclick = startGame ; 
+  document.getElementById("start-again-btn").onclick = startAgain ; 
   document.getElementById('how-to-play-btn').onclick = ()=> displayPanel('.how-to-play-panel') ; 
   document.getElementById('how-to-play-back-btn').onclick =()=> hidePanel('.how-to-play-panel');
   document.getElementById('credits-btn').onclick = ()=> displayPanel('.credits-panel') ;

@@ -17,17 +17,9 @@ function initNewWorld() {
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
   document.getElementById("player").setAttribute("position", "0 3 -10");
   document.getElementById("gameover-wrapper").style = "display:none";
-
-  var startAgainBtn = document.getElementById("start-again-btn");
-  if (!onclick) startAgainBtn.onclick = startAgain;
   
   initGrids();
   furthestCellIndex = maxGrids - 1;
-}
-
-function startAgain() {
-  initNewWorld() ; 
-  startGame() ; 
 }
 
 function startGame() {

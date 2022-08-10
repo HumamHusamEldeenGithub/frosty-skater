@@ -16,6 +16,10 @@ export async function initAIModel() {
   );
 }
 
+export async function resetAngle() {
+  angle = 0;
+}
+
 export async function detectPose() {
   try {
     var cameraBox = document.querySelector("#webcam");
