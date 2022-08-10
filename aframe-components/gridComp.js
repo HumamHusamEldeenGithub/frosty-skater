@@ -68,42 +68,28 @@ export const grid = {
 
   generateObstacles() {
     this.data.obstaclesIndexes = [];
-    var boxDepth = 2.5;
-    var boxWidth = gameController.gridDim.x / 5;
-    var boxHeight = 5;
 
     var z_offset;
 
     if (this.data.index == 0) return ;
 
-    z_offset = (gameController.gridDim.y / 2) * -1;
+    z_offset = (gameController.gridDim.y / 4) * -1;
 
     // Divide the plane into 3 sections
     var planSection = this.generateRandomIndex(0, 2, -1);
-
-    var x_offset = -gameController.gridDim.x / 2;
+    var x_offset = gameController.gridDim.x / 3;
 
     for (
       ;
-      z_offset < gameController.gridDim.y;
-      z_offset += (gameController.gridDim.y)
+      z_offset < gameController.gridDim.y / 2;
+      z_offset += (gameController.gridDim.y) / 2
     ) {
       var obstacle = document.createElement("a-entity");
       obstacle.setAttribute("gltf-model", "#obstacle_" +(Math.floor(Math.random() * 2)+1).toString());
 
-      var x_pos = x_offset + (planSection * gameController.gridDim.x) / 2;
-      if (x_pos < 0) {
-        x_pos += boxWidth / 2;
-      } else if (x_pos > 0) {
-        x_pos -= boxWidth / 2;
-      }
-
+      var x_pos = x_offset * (planSection - 1);
       var z_pos = z_offset;
-
-      obstacle.setAttribute("width", boxWidth);
-      obstacle.setAttribute("height", boxHeight);
-      obstacle.setAttribute("depth", boxDepth);
-      obstacle.setAttribute("static-body", "");
+      obstacle.setAttribute("static-body", "shape: sphere; sphereRadius: 5");
       obstacle.setAttribute("position", x_pos + " 0 " + z_pos);
       obstacle.setAttribute("material", "color:gray;");
       this.el.children[1].appendChild(obstacle);
