@@ -107,7 +107,7 @@ export const playerComp = {
       }
       if (powerUp.duration <= 0){
         gameController.powerUpsList.splice(i, 1);
-        document.getElementById("#player-shield").setAttribute("visibilty", false);
+        document.getElementById("player-shield").setAttribute("visible", false);
       }
     }
   },

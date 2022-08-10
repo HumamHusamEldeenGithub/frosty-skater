@@ -39,7 +39,7 @@ function registerComponents() {
 function attachComoponents() {
   document.getElementById("camera_comp").setAttribute("camera_comp", "");
   document.getElementById("player").setAttribute("player_comp", "");
-  document.getElementById("sss").setAttribute("shield_comp", "");
+  document.getElementById("player-shield").setAttribute("shield_comp", "");
   //document.getElementById("webcam_obj").setAttribute("webcam", "");
 }
 

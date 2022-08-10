@@ -24,13 +24,20 @@ export function checkCoinType(coin) {
 }
 
 export function enableShieldMode() {
+  var shieldMode = gameController.powerUpsList.find(
+    (element) => element.id == 1
+  );
+  if (shieldMode){
+    shieldMode.duration = 5 ; 
+    return ; 
+  }
   var shield = Object.assign({}, powerUp);
   shield.id = 1;
   shield.title = "Shield";
   shield.value = 0;
   shield.duration = 5;
   gameController.powerUpsList.push(shield);
-  document.getElementById("#player-shield").setAttribute("visibilty", true);
+  document.getElementById("player-shield").setAttribute("visible", true);
   displayNewPowerup(shield);
 }
 
