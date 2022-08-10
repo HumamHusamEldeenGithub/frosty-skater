@@ -62,8 +62,7 @@ export const playerComp = {
     var isCoin = e.detail.body.el.getAttribute("coin_comp");
 
     if (isCoin) {
-      document.getElementById("#coin_sound").components.sound.stopSound();
-      document.getElementById("#coin_sound").components.sound.playSound();
+
       gameController.updateScore(
         parseFloat(e.detail.body.el.getAttribute("coinValue"))
       );

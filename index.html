@@ -121,7 +121,10 @@
       </div>
     </div>
     <!-- stats -->
-    <a-scene physics="gravity:0;debug:true;" loading-screen="dotsColor: red; backgroundColor: black">
+    <a-scene
+      physics="gravity:0;debug:true;"
+      loading-screen="dotsColor: red; backgroundColor: black"
+    >
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
@@ -135,6 +138,16 @@
         ></audio>
         <audio id="hit" src="./sounds/hit.mp3" preload="auto"></audio>
         <audio id="snow_sound" src="./sounds/snow.wav" preload="auto"></audio>
+        <audio
+          id="shield_sound"
+          src="./sounds/shield_sound.mp3"
+          preload="auto"
+        ></audio>
+        <audio
+          id="hearts_sound"
+          src="./sounds/extra_hearts.wav"
+          preload="auto"
+        ></audio>
         <a-asset-item id="hoverboard" src="./models/Skate.glb"></a-asset-item>
         <a-asset-item id="cloud" src="./models/Cloud_3.glb"></a-asset-item>
         <a-asset-item id="ground" src="./models/Ground.glb"></a-asset-item>
@@ -188,10 +201,20 @@
             sound="src: #coin_sound"
           ></a-entity>
           <a-entity
-          position="0 0 10"
-          id="#snow_sound"
-          sound="src: #snow_sound"
-        ></a-entity>
+            position="0 0 10"
+            id="#snow_sound"
+            sound="src: #snow_sound"
+          ></a-entity>
+          <a-entity
+            position="0 0 10"
+            id="#shield_sound"
+            sound="src: #shield_sound"
+          ></a-entity>
+          <a-entity
+            position="0 0 10"
+            id="#hearts_sound"
+            sound="src: #hearts_sound"
+          ></a-entity>
           <a-entity position="0 0 10" id="#hit" sound="src: #hit"></a-entity>
         </a-entity>
       </a-entity>

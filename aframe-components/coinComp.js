@@ -5,6 +5,7 @@ export const coinComp = {
   multiple: true,
   init: function () {
     this.el.setAttribute("coin_comp", "coinType : " + this.chanceGenerator());
+    console.log(this.el.getAttribute("coin_comp"));
     this.el.setAttribute("gltf-model", "#coin");
     this.el.setAttribute("coinValue", 100);
     this.el.setAttribute(

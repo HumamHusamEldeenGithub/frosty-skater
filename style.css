@@ -32,9 +32,7 @@ html {
   opacity: 1;
   transition: all 1.5s;
 }
-.fade-in{
-  opacity: 0 !important ;
-}
+
 .display-none{
   display: none;
 }
@@ -153,6 +151,11 @@ html {
 .player-stats {
   display: none;
   position: relative;
-  background-color: #80669d;
+  background-color: #80669de0;
+  z-index: 1;
+  color : white;
+  font-weight: bold;
 }
-
+.fade-in{
+  opacity: 0 ;
+}

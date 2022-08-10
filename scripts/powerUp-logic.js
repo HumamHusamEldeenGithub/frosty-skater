@@ -11,10 +11,16 @@ export function checkCoinType(coin) {
   console.log(coin);
   switch (coin.coinType) {
     case 1:
+      playCoinSound("#shield_sound") ; 
       enableShieldMode();
       break;
     case 2:
+      playCoinSound("#hearts_sound") ; 
       extraHeartsMode();
+      break; 
+    default:
+      playCoinSound("#coin_sound");
+      break; 
   }
 }
 
@@ -56,4 +62,9 @@ function displayNewPowerup(powerupElement) {
 
   newPowerup.append(value);
   powerupList.append(newPowerup);
+}
+
+function playCoinSound(id){
+  document.getElementById(id).components.sound.stopSound();
+  document.getElementById(id).components.sound.playSound();
 }
