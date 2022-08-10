@@ -12,14 +12,22 @@ var furthestCellIndex = 0;
 var score = 0;
 
 function initNewWorld() {
-  document.getElementById("grids-wrapper").innerHTML = 0;
+
+  document.getElementById("grids-wrapper").innerHTML = "";
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
   document.getElementById("player").setAttribute("position", "0 3 -10");
   document.getElementById("gameover-wrapper").style = "display:none";
-  var startBtn = document.getElementById("startBtn");
-  if (!onclick) startBtn.onclick = startGame;
+
+  var startAgainBtn = document.getElementById("start-again-btn");
+  if (!onclick) startAgainBtn.onclick = startAgain;
+  
   initGrids();
   furthestCellIndex = maxGrids - 1;
+}
+
+function startAgain() {
+  initNewWorld() ; 
+  startGame() ; 
 }
 
 function startGame() {
@@ -49,6 +57,7 @@ function endGame() {
 }
 
 function initGrids() {
+  console.log("INIT GRIDS");
   var gridsWrapper = document.getElementById("grids-wrapper");
   gridsWrapper.innerHTML = "";
   var offset = (gridDim.y / 2) * -1;

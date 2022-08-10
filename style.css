@@ -58,7 +58,7 @@ html {
 }
 .player-hearts-wrapper{
   z-index: 9;
-  position: fixed;
+  position: relative;
   width: 100%;
   top: 0;
   display: flex;
@@ -152,5 +152,7 @@ html {
 }
 .player-stats {
   display: none;
+  position: relative;
+  background-color: #80669d;
 }
 
