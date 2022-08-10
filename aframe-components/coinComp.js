@@ -5,16 +5,17 @@ export const coinComp = {
   multiple: true,
   init: function () {
     var coinType = this.chanceGenerator() ; 
-    this.el.setAttribute("coin_comp", "coinType : " + coinType);
-    switch (coinType) {
-      case 1 : 
+    if(coinType < 1.5){
         this.el.setAttribute("gltf-model", "#coin1");
-        break ;
-      case 2 : 
+        this.el.setAttribute("coin_comp", "coinType : " + 1);
+    }
+    else if(coinType < 3.5){
         this.el.setAttribute("gltf-model", "#coin2");
-        break ; 
-      default : 
+        this.el.setAttribute("coin_comp", "coinType : " + 2);
+      }
+    else{
         this.el.setAttribute("gltf-model", "#coin");
+        this.el.setAttribute("coin_comp", "coinType : " + 0);
     }
     this.el.setAttribute("coinValue", 100);
     this.el.setAttribute(

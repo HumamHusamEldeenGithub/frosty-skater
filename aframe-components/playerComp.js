@@ -37,8 +37,8 @@ export const playerComp = {
       mixer = new THREE.AnimationMixer(mesh);
       console.log(animations);
       centerAction = mixer.clipAction(animations[0]);
-      leftAction = mixer.clipAction(animations[0]);
-      rightAction = mixer.clipAction(animations[0]);
+      leftAction = mixer.clipAction(animations[1]);
+      rightAction = mixer.clipAction(animations[2]);
 
       console.log(centerAction);
       actions = [centerAction, rightAction, leftAction];
@@ -47,12 +47,15 @@ export const playerComp = {
       this.activateAllActions();
     });
     this.acceleration = 1;
+    centerWeight = 1,
+    leftWeight = 0,
+    rightWeight = 0;
   },
 
   async tick(time, timeDelta) {
     if (!gameController.isMoving || !mixer ) return;
     this.movementController(timeDelta / 1000);
-    //this.gradualWeightUpdate(timeDelta / 1000);
+    this.gradualWeightUpdate(timeDelta / 1000);
     this.decreasePowerUpsDuration(timeDelta / 1000);
     gameController.updateScore(timeDelta / 1000);
     mixer.update(timeDelta / 1000);
@@ -133,12 +136,20 @@ export const playerComp = {
   async gradualWeightUpdate(timeDelta) {
     var angle = posenet.angle;
 
-    // Clamping the angle
-    if (angle > 0) angle = Math.min(angle, 15);
-    else angle = Math.max(angle, -15);
+    if(centerWeight + leftWeight + rightWeight > 1.02 || 
+      centerWeight + leftWeight + rightWeight < 0.98){
+        centerWeight = 1;
+        leftWeight = 0;
+        rightWeight = 0;
+      }
 
+    // Clamping the angle
+    if(angle < 0) angle = Math.max(angle, -15);
+    else angle = Math.min(angle, 15);
+    
     var percent = Math.abs(angle) / 15;
     var centerPercent = 1 - percent;
+    
 
     // Going to edge
     if (centerWeight > centerPercent) {
@@ -166,3 +177,4 @@ async function setWeight(action, weight) {
   action.enabled = true;
   action.setEffectiveWeight(weight);
 }
+

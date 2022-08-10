@@ -27,7 +27,7 @@ THREE.FresnelShader = {
 		"	vec3 color = vec3(1., .2, .2);",
 		"	vec3 white = vec3(1., 1., 1.);",
 		"	float fresnelTerm = ( 1.0 - -min(dot(vPositionW, normalize(vNormalW) ), 0.0) ); ",
-		"	gl_FragColor = vec4(mix(white, color, fresnelTerm), .4);",
+		"	gl_FragColor = vec4(mix(white, color, fresnelTerm), fresnelTerm);",
 
 		"}"
 
