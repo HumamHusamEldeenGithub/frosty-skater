@@ -4,6 +4,7 @@ import { worldComp } from "../aframe-components/worldComp";
 import { webcam } from "../aframe-components/webcam";
 import { grid } from "../aframe-components/gridComp";
 import { coinComp } from "../aframe-components/coinComp";
+import { shieldComp } from "../aframe-components/shieldComp";
 import { gridsFence } from "../aframe-components/gridFenceComp";
 import * as gameController from "./gameController";
 import * as posenet from "./posenet";
@@ -25,6 +26,7 @@ scene.addEventListener("loaded",async ()=> {
 
 function registerComponents() {
   AFRAME.registerComponent("player_comp", playerComp);
+  AFRAME.registerComponent("shield_comp", shieldComp);
   AFRAME.registerComponent("camera_comp", cameraComp);
   AFRAME.registerComponent("world_comp", worldComp);
   AFRAME.registerComponent("webcam", webcam);
@@ -37,6 +39,7 @@ function registerComponents() {
 function attachComoponents() {
   document.getElementById("camera_comp").setAttribute("camera_comp", "");
   document.getElementById("player").setAttribute("player_comp", "");
+  document.getElementById("sss").setAttribute("shield_comp", "");
   //document.getElementById("webcam_obj").setAttribute("webcam", "");
 }
 

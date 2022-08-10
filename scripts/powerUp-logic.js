@@ -8,7 +8,6 @@ var powerUp = {
 };
 
 export function checkCoinType(coin) {
-  console.log(coin);
   switch (coin.coinType) {
     case 1:
       playCoinSound("#shield_sound") ; 
@@ -31,8 +30,8 @@ export function enableShieldMode() {
   shield.value = 0;
   shield.duration = 5;
   gameController.powerUpsList.push(shield);
+  document.getElementById("#player-shield").setAttribute("visibilty", true);
   displayNewPowerup(shield);
-  console.log("Shield Mode Enabled");
 }
 
 export function extraHeartsMode() {
@@ -42,7 +41,6 @@ export function extraHeartsMode() {
   extraHearts.value = 1;
   extraHearts.duration = 0;
   gameController.increasePlayerHearts(extraHearts.value);
-  console.log("Extra Hearts Mode Enabled");
 }
 
 function displayNewPowerup(powerupElement) {

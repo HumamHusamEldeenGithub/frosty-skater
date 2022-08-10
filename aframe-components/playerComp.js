@@ -19,6 +19,7 @@ export const playerComp = {
     clock = new THREE.Clock();
     this.model = this.el;
     this.model.setAttribute("scale","0.5 0.5 0.5");
+    this.model.setAttribute("rotation","0 180 0");
     this.model.setAttribute("material" , "opacity:0");
     this.model.setAttribute("gltf-model", "#hoverboard");
     this.el.addEventListener("model-loaded", () => {
@@ -34,10 +35,12 @@ export const playerComp = {
       //Initialize Animation Mixer
       const animations = mesh.animations;
       mixer = new THREE.AnimationMixer(mesh);
-
+      console.log(animations);
       centerAction = mixer.clipAction(animations[0]);
-      leftAction = mixer.clipAction(animations[1]);
-      rightAction = mixer.clipAction(animations[2]);
+      leftAction = mixer.clipAction(animations[0]);
+      rightAction = mixer.clipAction(animations[0]);
+
+      console.log(centerAction);
       actions = [centerAction, rightAction, leftAction];
 
       //Start all actions
@@ -52,12 +55,14 @@ export const playerComp = {
     //this.gradualWeightUpdate(timeDelta / 1000);
     this.decreasePowerUpsDuration(timeDelta / 1000);
     gameController.updateScore(timeDelta / 1000);
-    //mixer.update(timeDelta / 1000);
+    mixer.update(timeDelta / 1000);
   },
 
   async checkCollision(e) {
+    /*
     console.log(e.detail);
     console.log("Player has collided with ", e.detail.body.el);
+    */
 
     var isCoin = e.detail.body.el.getAttribute("coin_comp");
 
@@ -90,8 +95,9 @@ export const playerComp = {
       var powerUp = gameController.powerUpsList[i];
       powerUp.duration -= timeDelta;
       try {
-        if (powerUp.duration <= 0)
+        if (powerUp.duration <= 0){
           document.querySelector(".powerup-" + powerUp.id).remove();
+        }
         else
           document.querySelector(
             ".powerup-" + powerUp.id
@@ -99,7 +105,10 @@ export const playerComp = {
       } catch (e) {
         console.log(e);
       }
-      if (powerUp.duration <= 0) gameController.powerUpsList.splice(i, 1);
+      if (powerUp.duration <= 0){
+        gameController.powerUpsList.splice(i, 1);
+        document.getElementById("#player-shield").setAttribute("visibilty", false);
+      }
     }
   },
 

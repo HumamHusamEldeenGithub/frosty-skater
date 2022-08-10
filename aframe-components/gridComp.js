@@ -51,7 +51,6 @@ export const grid = {
 
   resetGrid() {
     var newPos = gameController.moveCellToBehind().getAttribute("position");
-    console.log(newPos);
     this.model.object3D.position.set(
       0,
       0,
@@ -76,7 +75,6 @@ export const grid = {
 
     var x_offset = gameController.gridDim.x / 3;
     for (var i = 0;i < 3; i++) {
-      console.log(objectsCombination[i]);
       if(objectsCombination[i] == "n")
         continue;
 
@@ -94,7 +92,6 @@ export const grid = {
         this.generateCoin(position);
       }
     }
-    console.log("______________");
   },
 
   generateCoin(position) {
