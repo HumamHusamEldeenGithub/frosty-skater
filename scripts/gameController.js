@@ -9,15 +9,9 @@ var playerHearts = 0 ;
 var powerUpsList = [] ; 
 var gridCells = [];
 var furthestCellIndex = 0;
-
-
 var score = 0;
 
-function startGame() {
-  isMoving = true;
-  score = 0;
-  increasePlayerHearts(3);
-  document.querySelector('.player-stats').style.display="block";
+function initNewWorld() {
   document.getElementById("grids-wrapper").innerHTML = 0;
   document.getElementById("grids-wrapper").setAttribute("position", "0 0 0");
   document.getElementById("player").setAttribute("position", "0 3 -10");
@@ -26,6 +20,13 @@ function startGame() {
   if (!onclick) startBtn.onclick = startGame;
   initGrids();
   furthestCellIndex = maxGrids - 1;
+}
+
+function startGame() {
+  isMoving = true;
+  score = 0;
+  increasePlayerHearts(3);
+  document.querySelector('.player-stats').style.display="block";
 }
 
 function endGame() {
@@ -103,5 +104,6 @@ export {
   playerHearts,
   decreasePlayerHeart, 
   increasePlayerHearts,
-  moveCellToBehind
+  moveCellToBehind,
+  initNewWorld
 };

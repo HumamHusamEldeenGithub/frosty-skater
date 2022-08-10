@@ -1,5 +1,14 @@
+@font-face {
+  font-family: 'Agenor';
+  src: local('./Agenor-Thin/Agenor Thin'), local('./Agenor-Thin/Agenor-Thin'),
+      url('./Agenor-Thin/Agenor-Thin.woff2') format('woff2'),
+      url('./Agenor-Thin/Agenor-Thin.woff') format('woff'),
+      url('./Agenor-Thin/Agenor-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
 html {
-  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
+  font-family: 'Agenor';
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -17,9 +26,14 @@ html {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: white;
   flex-direction: column;
-  display: none;
+  color: white;
+  background-color: #131212;
+  opacity: 1;
+  transition: all 1.5s;
+}
+.fade-in{
+  opacity: 0 !important ;
 }
 .display-none{
   display: none;
@@ -51,7 +65,7 @@ html {
   font-size: 2rem;
   justify-content: center;
 }
-#main-menu {
+.main-menu {
   z-index: 8;
   position: absolute;
   width: 100vw;
@@ -60,21 +74,22 @@ html {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  background-color: #131212;
+  opacity: 1;
+  transition: all 1.5s;
 }
 .logo-img {
-  max-width: 300px;
+  max-width: 600px;
   max-height: 300px;
 }
 .custom-btn {
-  background: #5E5DF0;
+  background: #80669d;
   border-radius: 999px;
-  box-shadow: #5E5DF0 0 10px 20px -10px;
+  box-shadow: #80669d 0 10px 20px -10px;
   box-sizing: border-box;
   color: #FFFFFF;
   cursor: pointer;
-  font-family: Inter,Helvetica,"Apple Color Emoji","Segoe UI Emoji",NotoColorEmoji,"Noto Color Emoji","Segoe UI Symbol","Android Emoji",EmojiSymbols,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans",sans-serif;
-  font-size: 16px;
+  font-family: "Agenor", Segoe, "Segoe UI", Candara, Calibri, Arial, sans-serif;font-size: 16px;
   font-weight: 700;
   line-height: 24px;
   opacity: 1;
@@ -90,10 +105,11 @@ html {
   min-width: 300px ;  
 }
 .custom-btn:hover {
-  background: #7272e2;
+  background:#8d7e9e ;
   color: #e5ff00;
   transition: all 0.25s;
 }
+
 .how-to-play-panel{
   display: none;
   background-color: white;

@@ -19,6 +19,7 @@ export const playerComp = {
     clock = new THREE.Clock();
     this.model = this.el;
     this.model.setAttribute("scale","0.5 0.5 0.5");
+    this.model.setAttribute("material" , "opacity:0");
     this.model.setAttribute("gltf-model", "#hoverboard");
     this.el.addEventListener("model-loaded", () => {
       var mesh = this.model.getObject3D("mesh");

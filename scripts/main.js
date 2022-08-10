@@ -10,6 +10,18 @@ import * as posenet from "./posenet";
 import "../style.css";
 
 var scene = document.querySelector("a-scene");
+scene.addEventListener("loaded",async ()=> {
+  document.querySelector("#loading-wrapper").style.display="flex";
+  registerComponents();
+  attachComoponents(); 
+  gameController.initNewWorld();
+  await posenet.initAIModel() ;
+  await posenet.detectPose();
+  document.querySelector("#loading-wrapper").classList.add("fade-in") ; 
+  setTimeout(()=> document.querySelector("#loading-wrapper").style.display="none", 1500) ;
+  document.getElementById("#snow_sound").components.sound.stopSound();
+  document.getElementById("#snow_sound").components.sound.playSound(); 
+});
 
 function registerComponents() {
   AFRAME.registerComponent("player_comp", playerComp);
@@ -29,26 +41,20 @@ function attachComoponents() {
 }
 
 async function initScene() {
-  document.getElementById('main-menu').style.display = "none" ; 
-  document.querySelector("#loading-wrapper").style.display="block";
-
-  registerComponents();
-  attachComoponents(); 
-
-  gameController.startGame();
-  document.querySelector("#loading-wrapper").style.display="none";
+  document.getElementById('main-menu').classList.add('fade-in') ; 
+  setTimeout( () => {
+    document.getElementById('main-menu').style.display = "none" ; 
+    gameController.startGame();
+  },2500);
 }
 
 async function displayMainMenu () {
-  
   document.getElementById('main-menu').style.display = "flex" ; 
   document.getElementById('start-btn').onclick = initScene ; 
   document.getElementById('how-to-play-btn').onclick = ()=> displayPanel('.how-to-play-panel') ; 
   document.getElementById('how-to-play-back-btn').onclick =()=> hidePanel('.how-to-play-panel');
   document.getElementById('credits-btn').onclick = ()=> displayPanel('.credits-panel') ;
   document.getElementById('credits-back-btn').onclick =()=> hidePanel('.credits-panel');
-  await posenet.initAIModel() ;
-  posenet.calculateAngle();
 }
 
 function displayPanel(selector) {

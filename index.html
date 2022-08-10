@@ -10,11 +10,11 @@
     <script src="./scripts/cameraStream.js" type="module"></script>
     <script src="./scripts/gameController.js" type="module"></script>
     <script src="https://mixedreality.mozilla.org/ammo.js/builds/ammo.wasm.js"></script>
-    <script src="http://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-physics-system@v4.0.1/dist/aframe-physics-system.min.js"></script>
     <script src="https://unpkg.com/aframe-particle-system-component@1.0.9/dist/aframe-particle-system-component.min.js"></script>
     <script></script>
   </head>
-  
+
   <script type="x-shader/x-vertex" id="vertexshader">
 
     uniform float amplitude;
@@ -34,9 +34,8 @@
       gl_Position = projectionMatrix * modelViewMatrix * vec4( newPosition, 1.0 );
 
     }
-
   </script>
-  
+
   <script type="x-shader/x-fragment" id="fragmentshader">
 
     varying vec3 vNormal;
@@ -54,10 +53,9 @@
       gl_FragColor = vec4( ( directional + ambient ) * vColor, 1.0 );
 
     }
-
   </script>
   <body>
-    <div id="main-menu">
+    <div id="main-menu" class="main-menu">
       <img src="./textures/logo.png" class="logo-img" />
       <button id="start-btn" class="custom-btn" role="button">Play</button>
       <button id="how-to-play-btn" class="custom-btn" role="button">
@@ -97,7 +95,7 @@
     </div>
 
     <div id="loading-wrapper" class="fullscreen-wrapper">
-      <h1>Loading...</h1>
+      <img src="./textures/loading.gif" />
     </div>
     <div id="gameover-wrapper" class="fullscreen-wrapper display-none">
       <h1>Game Over</h1>
@@ -109,7 +107,7 @@
         Highest score :
         <div class="highest-score"></div>
       </h1>
-      <button id="startBtn">Start again</button>
+      <button id="startBtn" class="custom-btn">Start again</button>
     </div>
     <div class="player-stats">
       <div class="powerup-wrapper"></div>
@@ -123,7 +121,7 @@
       </div>
     </div>
     <!-- stats -->
-    <a-scene physics="gravity:0">
+    <a-scene physics="gravity:0;debug:true;" loading-screen="dotsColor: red; backgroundColor: black">
       <a-assets>
         <video id="webcam" playsinline crossorigin="anonymous"></video>
         <img id="sky" src="./textures/sky.png" />
@@ -136,14 +134,20 @@
           preload="auto"
         ></audio>
         <audio id="hit" src="./sounds/hit.mp3" preload="auto"></audio>
+        <audio id="snow_sound" src="./sounds/snow.wav" preload="auto"></audio>
         <a-asset-item id="hoverboard" src="./models/Skate.glb"></a-asset-item>
         <a-asset-item id="cloud" src="./models/Cloud_3.glb"></a-asset-item>
         <a-asset-item id="ground" src="./models/Ground.glb"></a-asset-item>
         <a-asset-item id="cliff" src="./models/Cliff_1.glb"></a-asset-item>
         <a-asset-item id="coin" src="./models/Coin.glb"></a-asset-item>
-        <a-asset-item id="obstacle_1" src="./models/Obstacle_1.glb"></a-asset-item>
-        <a-asset-item id="obstacle_2" src="./models/Obstacle_2.glb"></a-asset-item>
-        
+        <a-asset-item
+          id="obstacle_1"
+          src="./models/Obstacle_1.glb"
+        ></a-asset-item>
+        <a-asset-item
+          id="obstacle_2"
+          src="./models/Obstacle_2.glb"
+        ></a-asset-item>
       </a-assets>
 
       <a-sky src="#sky"></a-sky>
@@ -151,11 +155,15 @@
       <a-entity particle-system="preset: snow;" position="0 0 -10"></a-entity>
 
       <a-entity id="grids-wrapper"> </a-entity>
-      
+
       <a-entity light="type: ambient; color: #FFF; intensity: 0.5"></a-entity>
-      <a-entity light="type: directional; color: #FFF; intensity: 0.5" position="-0.5 1 1"></a-entity>
+      <a-entity
+        light="type: directional; color: #FFF; intensity: 0.5"
+        position="-0.5 1 1"
+      ></a-entity>
       <a-entity
         physics-collider
+        kinematic-body="radius:5"
         position="0 3 0"
         id="player"
         rotation="0 0 0"
@@ -180,6 +188,11 @@
             id="#coin_sound"
             sound="src: #coin_sound"
           ></a-entity>
+          <a-entity
+          position="0 0 10"
+          id="#snow_sound"
+          sound="src: #snow_sound"
+        ></a-entity>
           <a-entity position="0 0 10" id="#hit" sound="src: #hit"></a-entity>
         </a-entity>
       </a-entity>
