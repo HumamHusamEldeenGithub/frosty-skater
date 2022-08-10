@@ -39,7 +39,7 @@ export function extraHeartsMode() {
   var extraHearts = Object.assign({}, powerUp);
   extraHearts.id = 2;
   extraHearts.title = "Extra Hearts";
-  extraHearts.value = 3;
+  extraHearts.value = 1;
   extraHearts.duration = 0;
   gameController.increasePlayerHearts(extraHearts.value);
   console.log("Extra Hearts Mode Enabled");

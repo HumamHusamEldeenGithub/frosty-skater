@@ -3,13 +3,15 @@ var playerWidth = 2;
 var gridDim = { x: 40, y: 40 };
 var maxRange = gridDim.x / 2 - playerWidth;
 var maxGrids = 8;
-var gridMargin = 20;
 var playerVelocity = new THREE.Vector3(0, 0, 0.02);
 var playerHearts = 0 ;  
 var powerUpsList = [] ; 
 var gridCells = [];
 var furthestCellIndex = 0;
 var score = 0;
+
+const additiveSpeed = 0.00008;
+const maxSpeed = 0.5;
 
 function initNewWorld() {
 
@@ -91,6 +93,8 @@ function increasePlayerHearts(increment , force) {
 function moveCellToBehind(){
   if(furthestCellIndex >= maxGrids)
     furthestCellIndex = 0 ;
+  playerVelocity.z += additiveSpeed;
+  playerVelocity.z = Math.min(maxSpeed, playerVelocity.z);
   return gridCells[furthestCellIndex++];
 }
 
@@ -99,7 +103,6 @@ export {
   maxRange,
   maxGrids,
   gridDim,
-  gridMargin,
   startGame,
   endGame,
   initGrids,
