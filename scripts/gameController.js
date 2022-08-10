@@ -25,7 +25,8 @@ function initNewWorld() {
 function startGame() {
   isMoving = true;
   score = 0;
-  increasePlayerHearts(3);
+  playerVelocity = new THREE.Vector3(0, 0, 0.02);
+  increasePlayerHearts(3,true);
   document.querySelector('.player-stats').style.display="block";
 }
 
@@ -79,8 +80,11 @@ function decreasePlayerHeart() {
     endGame() ; 
 }
 
-function increasePlayerHearts(increment) {
-  playerHearts += increment ; 
+function increasePlayerHearts(increment , force) {
+  if (force )
+    playerHearts = increment ; 
+  else 
+    playerHearts += increment ; 
   document.querySelector(".player-hearts-value").innerHTML = playerHearts ; 
 }
 

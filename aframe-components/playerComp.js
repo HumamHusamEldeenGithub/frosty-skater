@@ -47,7 +47,7 @@ export const playerComp = {
   },
 
   async tick(time, timeDelta) {
-    if (!mixer) return;
+    if (!gameController.isMoving || !mixer ) return;
     this.movementController(timeDelta / 1000);
     //this.gradualWeightUpdate(timeDelta / 1000);
     this.decreasePowerUpsDuration(timeDelta / 1000);

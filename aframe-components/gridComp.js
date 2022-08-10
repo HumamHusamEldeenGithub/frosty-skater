@@ -34,7 +34,7 @@ export const grid = {
     this.el.appendChild(elements);
     this.el.appendChild(fence);
 
-    //this.speed = 0.0005;
+    this.speed = 0.0005;
 
     this.generateObstacles();
     this.generateCoins();
@@ -48,8 +48,8 @@ export const grid = {
         .copy(gameController.playerVelocity)
         .multiplyScalar(timeDelta);
       this.model.object3D.position.add(dist);
+      gameController.playerVelocity.z += (this.speed * timeDelta) / 10000;
     }
-    //gameController.playerVelocity.z += (this.speed * timeDelta) / 1000;
   },
 
   resetGrid() {

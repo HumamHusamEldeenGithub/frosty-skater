@@ -108,6 +108,7 @@
         <div class="highest-score"></div>
       </h1>
       <button id="start-again-btn" class="custom-btn">Start again</button>
+      <button id="back-to-menu-btn" class="custom-btn">Back to main menu</button>
     </div>
     <div class="player-stats">
       <div class="powerup-wrapper"></div>
@@ -122,7 +123,7 @@
     </div>
     <!-- stats -->
     <a-scene
-      physics="gravity:0;debug:true;"
+      physics="gravity:0;"
       loading-screen="dotsColor: red; backgroundColor: black"
     >
       <a-assets>
@@ -137,7 +138,7 @@
           preload="auto"
         ></audio>
         <audio id="hit" src="./sounds/hit.mp3" preload="auto"></audio>
-        <audio id="snow_sound" src="./sounds/snow.wav" preload="auto"></audio>
+        <audio id="snow_sound" src="./sounds/snow.wav" preload="auto" loop="true"></audio>
         <audio
           id="shield_sound"
           src="./sounds/shield_sound.mp3"
@@ -153,6 +154,8 @@
         <a-asset-item id="ground" src="./models/Ground.glb"></a-asset-item>
         <a-asset-item id="cliff" src="./models/Cliff_1.glb"></a-asset-item>
         <a-asset-item id="coin" src="./models/Coin.glb"></a-asset-item>
+        <a-asset-item id="coin1" src="./models/Shield.glb"></a-asset-item>
+        <a-asset-item id="coin2" src="./models/Shield.glb"></a-asset-item>
         <a-asset-item
           id="obstacle_1"
           src="./models/Obstacle_1.glb"
@@ -175,7 +178,7 @@
         position="-0.5 1 1"
       ></a-entity>
       <a-entity
-        kinematic-body="radius: 2"
+        kinematic-body="radius: 3"
         position="0 3 0"
         id="player"
         rotation="0 0 0"

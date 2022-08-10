@@ -47,16 +47,22 @@ async function startGame() {
     gameController.startGame();
   },2500);
 }
-function startAgain(){
+function GameOverBtn(mainMenu){
   posenet.resetAngle();
   gameController.initNewWorld();
-  startGame();
+  if (mainMenu){
+    document.getElementById('main-menu').classList.remove("fade-in");
+    displayMainMenu() ; 
+  }
+  else 
+    startGame();
 }
 
 async function displayMainMenu () {
   document.getElementById('main-menu').style.display = "flex" ; 
   document.getElementById('start-btn').onclick = startGame ; 
-  document.getElementById("start-again-btn").onclick = startAgain ; 
+  document.getElementById("start-again-btn").onclick = ()=> GameOverBtn(false) ; 
+  document.getElementById("back-to-menu-btn").onclick = ()=> GameOverBtn(true) ; 
   document.getElementById('how-to-play-btn').onclick = ()=> displayPanel('.how-to-play-panel') ; 
   document.getElementById('how-to-play-back-btn').onclick =()=> hidePanel('.how-to-play-panel');
   document.getElementById('credits-btn').onclick = ()=> displayPanel('.credits-panel') ;

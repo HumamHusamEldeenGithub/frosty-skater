@@ -4,9 +4,19 @@ export const coinComp = {
   },
   multiple: true,
   init: function () {
-    this.el.setAttribute("coin_comp", "coinType : " + this.chanceGenerator());
+    var coinType = this.chanceGenerator() ; 
+    this.el.setAttribute("coin_comp", "coinType : " + coinType);
     console.log(this.el.getAttribute("coin_comp"));
-    this.el.setAttribute("gltf-model", "#coin");
+    switch (coinType) {
+      case 1 : 
+        this.el.setAttribute("gltf-model", "#coin1");
+        break ;
+      case 2 : 
+        this.el.setAttribute("gltf-model", "#coin2");
+        break ; 
+      default : 
+        this.el.setAttribute("gltf-model", "#coin");
+    }
     this.el.setAttribute("coinValue", 100);
     this.el.setAttribute(
       "animation",
@@ -18,6 +28,6 @@ export const coinComp = {
   },
   chanceGenerator: function () {
     var chance = parseInt(Math.random() * 10);
-    return chance;
+    return 1;
   },
 };
