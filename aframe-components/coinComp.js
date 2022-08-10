@@ -28,6 +28,6 @@ export const coinComp = {
   },
   chanceGenerator: function () {
     var chance = parseInt(Math.random() * 10);
-    return 1;
+    return chance;
   },
 };
